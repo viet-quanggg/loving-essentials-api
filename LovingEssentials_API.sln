@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LovingEssentials.API", "LovingEssentials.API\LovingEssentials.API.csproj", "{BB3CF87E-8DB4-42A4-8FD2-47A0E1394E7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LovingEssentials.DataAccess", "LovingEssentials.DataAccess\LovingEssentials.DataAccess.csproj", "{F499D3A5-01CF-4C5F-AAFE-5A5348835DDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LovingEssentials.BusinessObject", "LovingEssentials.BusinessObject\LovingEssentials.BusinessObject.csproj", "{D092F22C-29DA-4479-A81D-705A36B7EAEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LovingEssentials.Repository", "LovingEssentials.Repository\LovingEssentials.Repository.csproj", "{7A9CFFA3-4851-4B42-82AB-BA92CF5B77F9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB3CF87E-8DB4-42A4-8FD2-47A0E1394E7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB3CF87E-8DB4-42A4-8FD2-47A0E1394E7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB3CF87E-8DB4-42A4-8FD2-47A0E1394E7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB3CF87E-8DB4-42A4-8FD2-47A0E1394E7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F499D3A5-01CF-4C5F-AAFE-5A5348835DDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F499D3A5-01CF-4C5F-AAFE-5A5348835DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F499D3A5-01CF-4C5F-AAFE-5A5348835DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F499D3A5-01CF-4C5F-AAFE-5A5348835DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D092F22C-29DA-4479-A81D-705A36B7EAEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D092F22C-29DA-4479-A81D-705A36B7EAEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D092F22C-29DA-4479-A81D-705A36B7EAEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D092F22C-29DA-4479-A81D-705A36B7EAEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A9CFFA3-4851-4B42-82AB-BA92CF5B77F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A9CFFA3-4851-4B42-82AB-BA92CF5B77F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A9CFFA3-4851-4B42-82AB-BA92CF5B77F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A9CFFA3-4851-4B42-82AB-BA92CF5B77F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
