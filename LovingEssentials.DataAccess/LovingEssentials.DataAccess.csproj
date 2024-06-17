@@ -26,4 +26,8 @@
       <Folder Include="DTOs\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\LovingEssentials.BusinessObject\LovingEssentials.BusinessObject.csproj" />
+    </ItemGroup>
+
 </Project>
