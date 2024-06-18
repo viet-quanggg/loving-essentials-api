@@ -22,11 +22,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DAOs\" />
-      <Folder Include="DTOs\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\LovingEssentials.BusinessObject\LovingEssentials.BusinessObject.csproj" />
     </ItemGroup>
 

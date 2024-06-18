@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
+using LovingEssentials.DataAccess.DAOs;
+using LovingEssentials.Repository.IRepository;
+using LovingEssentials.Repository.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +25,9 @@ builder.Services.AddAuthentication();
 
 builder.Services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+
+builder.Services.AddScoped<UserDAO>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
