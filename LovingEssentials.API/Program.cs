@@ -68,7 +68,6 @@ try
     await Seed.SeedUser(context);
     await Seed.SeedBrand(context);
     await Seed.SeedCategory(context);
-    await Seed.SeedBranch(context);
     await Seed.SeedProduct(context);
 }
 catch (Exception ex)
