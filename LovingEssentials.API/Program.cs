@@ -45,6 +45,9 @@ try
     var context = services.GetRequiredService<DataContext>();
     await context.Database.MigrateAsync();
     await Seed.SeedUser(context);
+    await Seed.SeedBranch(context);
+    await Seed.CategorySeed(context);
+    await Seed.SeedProduct(context);
 }
 catch (Exception ex)
 {
