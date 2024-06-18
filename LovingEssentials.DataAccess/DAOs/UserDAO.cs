@@ -12,6 +12,53 @@ public class UserDAO
         _context = context;
     }
 
+    public async Task<User> Login(string email, string password)
+    {
+        User user = null;
+        try
+        {
+            if (email != null && password != null)
+            {
+                user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+            }
+        }catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+        return user;
+    }
+
+    public async Task Register(User user)
+    {
+        var u = await GetUserById(user.Id);
+        try
+        {
+            if (u == null)
+            {
+                var newUser = new User
+                {
+                    Name = user.Name,
+                    Role = Role.Client,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    Password = user.Password,
+                    Status = 1
+                };
+
+                await _context.Users.AddAsync(newUser);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("User is existed");
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
     public async Task<List<User>> ListAllUser()
     {
         List<User> list = null;
