@@ -1,24 +1,24 @@
 [
   {
-    "Name": "Thực phẩm dinh dưỡng y học Abbott Pediasure",
+    "Name": "Thực phẩm dinh dưỡng y học Abbott Pediasure hương Vani 1,6kg",
     "Description": "Thực phẩm dinh dưỡng y học Abbott Pediasure hương Vani 1,6kg dành cho các bé từ 1 - 10 tuổi",
-    "Price": 100.0,
-    "ImageURL": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/jiaxqnzxjnbscmebhxud",
     "Quantity": 50,
+    "Price": 1085000,
+    "BrandId": 3,
     "CategoryId": 1,
-    "BrandId": 3
+    "ImageUrl": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/jiaxqnzxjnbscmebhxud"
   },
   {
-    "Name": "Sữa Friso Gold",
+    "Name": "Sữa Friso Gold số 4 1400g",
     "Description": "Sữa Friso Gold số 4 1400g dành cho các bé từ 2 - 6 tuổi",
-    "Price": 150.0,
-    "ImageURL": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/abvaj0da2bbs920xr1qd",
-    "Quantity": 20,
-    "CategoryId": 2,
-    "BrandId": 2
+    "Quantity": 50,
+    "Price": 735000,
+    "BrandId": 8,
+    "CategoryId": 1,
+    "ImageUrl": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/abvaj0da2bbs920xr1qd"
   },
   {
-    "Name": "Sữa Abbott Grow",
+    "Name": "Sữa Abbott Grow 4 900g",
     "Description": "Sữa Abbott Grow 4 900g dành cho các bé trên 2 tuổi",
     "Quantity": 50,
     "Price": 335000,

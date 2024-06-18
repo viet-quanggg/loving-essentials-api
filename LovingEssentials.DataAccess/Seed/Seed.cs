@@ -1,4 +1,4 @@
-﻿using LovingEssentials.BusinessObject;
+using LovingEssentials.BusinessObject;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,26 +25,7 @@ namespace LovingEssentials.DataAccess.Seed
                 await _context.SaveChangesAsync();
             }
         }
-
-        public static async Task CategorySeed(DataContext _context)
-        {
-            if (await _context.Categories.AnyAsync()) { return; }
-
-            var list = new List<Category>
-            {
-                new Category {Name="Chilren Milk"},
-                new Category {Name="Baby Milk"},
-                new Category {Name="Dairy Cow"},
-                new Category {Name="Pregnant Milk"}
-            };
-
-            foreach (var i in list)
-            {
-                await _context.Categories.AddAsync(i);
-                await _context.SaveChangesAsync();
-            }
-        }
-        public static async Task SeedBranch(DataContext _context)
+        public static async Task SeedBrand(DataContext _context)
         {
             if (await _context.Brands.AnyAsync()) { return; }
 
@@ -66,18 +47,35 @@ namespace LovingEssentials.DataAccess.Seed
                 await _context.SaveChangesAsync();
             }
         }
+        public static async Task SeedCategory(DataContext _context)
+        {
+            if (await _context.Categories.AnyAsync()) { return; }
 
+            var list = new List<Category>
+            {
+                new Category {Name="Chilren Milk"},
+                new Category {Name="Baby Milk"},
+                new Category {Name="Dairy Cow"},
+                new Category {Name="Pregnant Milk"}
+            };
+
+            foreach (var i in list)
+            {
+                await _context.Categories.AddAsync(i);
+                await _context.SaveChangesAsync();
+            }
+        }
         public static async Task SeedProduct(DataContext _context)
         {
-            if (await _context.Products.AnyAsync()) return;
+            if (await _context.Products.AnyAsync()) { return; }
 
-            var productData = await File.ReadAllTextAsync("../LovingEssentials.DataAccess/Seed/ProductSeed.json");
+            var milk = await File.ReadAllTextAsync("../LovingEssentials.DataAccess/Seed/ProductSeed.json");
             var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var products = JsonSerializer.Deserialize<List<Product>>(productData, jsonOptions);
+            var m = JsonSerializer.Deserialize<List<Product>>(milk, jsonOptions);
 
-            foreach (var product in products)
+            foreach (var i in m)
             {
-                await _context.Products.AddAsync(product);
+                await _context.Products.AddAsync(i);
                 await _context.SaveChangesAsync();
             }
         }
