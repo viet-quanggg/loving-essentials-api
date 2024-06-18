@@ -1,0 +1,47 @@
+[
+  {
+    "Name": "Thực phẩm dinh dưỡng y học Abbott Pediasure",
+    "Description": "Thực phẩm dinh dưỡng y học Abbott Pediasure hương Vani 1,6kg dành cho các bé từ 1 - 10 tuổi",
+    "Price": 100.0,
+    "ImageURL": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/jiaxqnzxjnbscmebhxud",
+    "Quantity": 50,
+    "CategoryId": 1,
+    "BrandId": 3
+  },
+  {
+    "Name": "Sữa Friso Gold",
+    "Description": "Sữa Friso Gold số 4 1400g dành cho các bé từ 2 - 6 tuổi",
+    "Price": 150.0,
+    "ImageURL": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/abvaj0da2bbs920xr1qd",
+    "Quantity": 20,
+    "CategoryId": 2,
+    "BrandId": 2
+  },
+  {
+    "Name": "Sữa Abbott Grow",
+    "Description": "Sữa Abbott Grow 4 900g dành cho các bé trên 2 tuổi",
+    "Quantity": 50,
+    "Price": 335000,
+    "BrandId": 3,
+    "CategoryId": 1,
+    "ImageUrl": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/abvaj0da2bbs920xr1qd"
+  },
+  {
+    "Name": "Sản phẩm dinh dưỡng Friso Gold Pro 4",
+    "Description": "Sản phẩm dinh dưỡng Friso Gold Pro 4 dành cho các bé từ 3 - 6 tuổi",
+    "Quantity": 50,
+    "Price": 595000,
+    "BrandId": 8,
+    "CategoryId": 1,
+    "ImageUrl": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/abvaj0da2bbs920xr1qd"
+  },
+  {
+    "Name": "Sữa bầu Friso Mum Gold 900g hương cam",
+    "Description": "Thực phẩm bổ sung cho mẹ mang thai và cho con bú, hương cam nhãn hiệu Frisomum Gold DualCare+TM",
+    "Quantity": 50,
+    "Price": 539000,
+    "BrandId": 8,
+    "CategoryId": 4,
+    "ImageUrl": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/abvaj0da2bbs920xr1qd"
+  }
+]
