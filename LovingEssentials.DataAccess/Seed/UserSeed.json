@@ -1,0 +1,37 @@
+[
+  {
+    "Name": "Nguyen Van A",
+    "Role": 1,
+    "Email": "nguyenvana@gmail.com",
+    "Password": "Pa$$w0rd",
+    "PhoneNumber": "0123456789"
+  },
+  {
+    "Name": "Nguyen Van B",
+    "Role": 1,
+    "Email": "nguyenvanb@gmail.com",
+    "Password": "Pa$$w0rd",
+    "PhoneNumber": "0123456786"
+  },
+  {
+    "Name": "Nguyen Van Admin",
+    "Role": 3,
+    "Email": "admin@gmail.com",
+    "Password": "Pa$$w0rd",
+    "PhoneNumber": "0123456782"
+  },
+  {
+    "Name": "Nguyen Van Admin",
+    "Role": 3,
+    "Email": "admin@gmail.com",
+    "Password": "Pa$$w0rd",
+    "PhoneNumber": "0123456789"
+  },
+  {
+    "Name": "Nguyen Van Shipper",
+    "Role": 2,
+    "Email": "shipper@gmail.com",
+    "Password": "Pa$$w0rd",
+    "PhoneNumber": "0123456785"
+  }
+]
