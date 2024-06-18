@@ -12,6 +12,15 @@ public class UserRepository : IUserRepository
         _userDAO = userDAO;
     }
 
+    public async Task<User> Login(string email, string password)
+    {
+        return await _userDAO.Login(email, password);
+    }
+    public async Task Register(User user)
+    {
+        await _userDAO.Register(user);
+    }
+
     public async Task<List<User>> ListAllUser()
     {
         return await _userDAO.ListAllUser();
