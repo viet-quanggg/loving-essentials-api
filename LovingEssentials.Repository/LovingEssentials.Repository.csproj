@@ -7,11 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="IRepository\" />
-      <Folder Include="Repository\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\LovingEssentials.DataAccess\LovingEssentials.DataAccess.csproj" />
     </ItemGroup>
 

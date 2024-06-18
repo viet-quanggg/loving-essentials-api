@@ -4,34 +4,39 @@
     "Role": 1,
     "Email": "nguyenvana@gmail.com",
     "Password": "Pa$$w0rd",
-    "PhoneNumber": "0123456789"
+    "PhoneNumber": "0123456789",
+    "Status": 1
   },
   {
     "Name": "Nguyen Van B",
     "Role": 1,
     "Email": "nguyenvanb@gmail.com",
     "Password": "Pa$$w0rd",
-    "PhoneNumber": "0123456786"
+    "PhoneNumber": "0123456786",
+    "Status": 1
   },
   {
     "Name": "Nguyen Van Admin",
     "Role": 3,
     "Email": "admin@gmail.com",
     "Password": "Pa$$w0rd",
-    "PhoneNumber": "0123456782"
+    "PhoneNumber": "0123456782",
+    "Status": 1
   },
   {
     "Name": "Nguyen Van Admin",
     "Role": 3,
     "Email": "admin@gmail.com",
     "Password": "Pa$$w0rd",
-    "PhoneNumber": "0123456789"
+    "PhoneNumber": "0123456789",
+    "Status": 1
   },
   {
     "Name": "Nguyen Van Shipper",
     "Role": 2,
     "Email": "shipper@gmail.com",
     "Password": "Pa$$w0rd",
-    "PhoneNumber": "0123456785"
+    "PhoneNumber": "0123456785",
+    "Status": 1
   }
 ]
