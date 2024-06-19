@@ -39,7 +39,7 @@ namespace LovingEssentials.API.Controllers
                 Id = user.Id,
                 Name = user.Name,
                 Email = user.Email,
-                Role = (LovingEssentials.BusinessObject.Role)user.Role,
+                Role = user.Role,
                 Password = user.Password,
                 PhoneNumber = user.PhoneNumber,
                 Status = user.Status
@@ -53,7 +53,7 @@ namespace LovingEssentials.API.Controllers
         public async Task<IActionResult> UpdateUser([FromBody] UserCRUD user)
         {
             var u = await _userRepository.GetUserById(user.Id);
-            if(u != null)
+            if (u != null)
             {
                 u.Name = user.Name;
                 u.Email = user.Email;
