@@ -20,6 +20,11 @@ namespace LovingEssentials.DataAccess
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=localhost;Database=LovingDB;Trusted_Connection=false;user=sa;pwd=123456@Aa;TrustServerCertificate=True");
+
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
