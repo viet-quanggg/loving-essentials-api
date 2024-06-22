@@ -1,6 +1,8 @@
 ﻿using LovingEssentials.BusinessObject;
 using LovingEssentials.DataAccess.DAOs;
 using LovingEssentials.Repository.IRepository;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 
 namespace LovingEssentials.Repository.Repository;
 
@@ -12,9 +14,9 @@ public class UserRepository : IUserRepository
         _userDAO = userDAO;
     }
 
-    public async Task<User> Login(string email, string password)
+    public async Task<User> Login(string email)
     {
-        return await _userDAO.Login(email, password);
+        return await _userDAO.Login(email);
     }
     public async Task Register(User user)
     {
@@ -29,6 +31,10 @@ public class UserRepository : IUserRepository
     public async Task<User> GetUserById(int id)
     {
         return await _userDAO.GetUserById(id);
+    }
+    public async Task<bool> UserExistsByEmail(string email)
+    {
+        return await _userDAO.UserExistsByEmail(email);
     }
 
     public async Task CreateUser(User user)
@@ -45,4 +51,5 @@ public class UserRepository : IUserRepository
     {
         await _userDAO.DeleteUser(user);
     }
+
 }
