@@ -15,6 +15,7 @@ namespace LovingEssentials.BusinessObject
         public int ProductId { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }
-        public Dictionary<Product, int> Products { get; set; } = new Dictionary<Product, int>();
+
+        public string ProductsJson { get; set; }
     }
 }

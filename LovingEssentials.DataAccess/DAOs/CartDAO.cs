@@ -2,7 +2,9 @@
 using AutoMapper.QueryableExtensions;
 using LovingEssentials.BusinessObject;
 using LovingEssentials.DataAccess.DTOs;
+using LovingEssentials.DataAccess.Migrations;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,16 +28,38 @@ namespace LovingEssentials.DataAccess.DAOs
         {
             try
             {
-                var result = await _context.Carts
-                    .ProjectTo<CartDTO>(_mapper.ConfigurationProvider)
-                    .ToListAsync();
-                return result;
+                var carts = await _context.Carts.ToListAsync();
+                var list = new List<CartDTO>();
+                foreach (var cart in carts)
+                {
+                    var productsJson = cart.ProductsJson;
+                    var productsDict = JsonConvert.DeserializeObject<Dictionary<int, int>>(productsJson);
+
+                    var cartDto = _mapper.Map<CartDTO>(cart);
+
+
+                    foreach (var kvp in productsDict)
+                    {
+                        var productDto = await _context.Products
+                            .Where(p => p.Id == kvp.Key)
+                            .ProjectTo<ProductDTO>(_mapper.ConfigurationProvider)
+                            .FirstOrDefaultAsync();
+
+                        if (productDto != null)
+                        {
+                            cartDto.Products.Add(kvp.Value, productDto);
+                        }
+                    }
+                    list.Add(cartDto);
+                }
+                return list;
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
+
         public async Task<CartDTO> GetCartByIdAsync(int cartId)
         {
             try
@@ -61,7 +85,6 @@ namespace LovingEssentials.DataAccess.DAOs
             {
                 // Check if there's an existing cart for the buyer
                 var cart = await _context.Carts
-                    .Include(c => c.Products)
                     .FirstOrDefaultAsync(c => c.BuyerId == buyerId);
 
                 if (cart == null)
@@ -72,7 +95,7 @@ namespace LovingEssentials.DataAccess.DAOs
                         CreateAt = DateTime.Now,
                         UpdateAt = DateTime.Now,
                         BuyerId = buyerId,
-                        Products = new Dictionary<Product, int>()
+                        ProductsJson = "{}"
                     };
                     _context.Carts.Add(cart);
                     await _context.SaveChangesAsync();
@@ -86,21 +109,19 @@ namespace LovingEssentials.DataAccess.DAOs
                 }
 
                 // Add or update the product quantity in the cart
-                if (cart.Products.ContainsKey(product))
+                var productsDict = JsonConvert.DeserializeObject<Dictionary<int, int>>(cart.ProductsJson);
+                if (productsDict.ContainsKey(productId))
                 {
-                    cart.Products[product] += quantity;
+                    productsDict[productId] += quantity;
                 }
                 else
                 {
-                    cart.Products.Add(product, quantity);
+                    productsDict.Add(productId, quantity);
                 }
 
-                // Update the price of the cart
+                cart.ProductsJson = JsonConvert.SerializeObject(productsDict);
                 cart.Price += product.Price * quantity;
-
-                // Update timestamp of the cart
                 cart.UpdateAt = DateTime.Now;
-                
 
                 await _context.SaveChangesAsync();
 
@@ -108,16 +129,17 @@ namespace LovingEssentials.DataAccess.DAOs
                 var cartDto = _mapper.Map<CartDTO>(cart);
 
                 // Optionally, populate the ProductDTO objects in the cart DTO
-                foreach (var kvp in cartDto.Products.ToList())
+
+                foreach (var kvp in productsDict)
                 {
                     var productDto = await _context.Products
-                        .Where(p => p.Id == kvp.Key.Id)
+                        .Where(p => p.Id == kvp.Key)
                         .ProjectTo<ProductDTO>(_mapper.ConfigurationProvider)
                         .FirstOrDefaultAsync();
 
                     if (productDto != null)
                     {
-                        cartDto.Products[productDto] = kvp.Value;
+                        cartDto.Products.Add(kvp.Value, productDto);
                     }
                 }
 
@@ -135,7 +157,6 @@ namespace LovingEssentials.DataAccess.DAOs
             {
                 // Retrieve the cart for the buyer
                 var cart = await _context.Carts
-                    .Include(c => c.Products)
                     .FirstOrDefaultAsync(c => c.BuyerId == buyerId);
 
                 if (cart == null)
@@ -151,25 +172,24 @@ namespace LovingEssentials.DataAccess.DAOs
                 }
 
                 // Check if the product exists in the cart
-                if (!cart.Products.ContainsKey(product))
+                var productsDict = JsonConvert.DeserializeObject<Dictionary<int, int>>(cart.ProductsJson);
+                if (!productsDict.ContainsKey(productId))
                 {
                     throw new Exception($"Product with ID {productId} not found in the cart");
                 }
 
                 // Remove the product from the cart or decrease its quantity
-                if (cart.Products[product] > quantity)
+                if (productsDict[productId] > quantity)
                 {
-                    cart.Products[product] -= quantity;
+                    productsDict[productId] -= quantity;
                 }
                 else
                 {
-                    cart.Products.Remove(product);
+                    productsDict.Remove(productId);
                 }
 
-                // Update the price of the cart
+                cart.ProductsJson = JsonConvert.SerializeObject(productsDict);
                 cart.Price -= product.Price * quantity;
-
-                // Update timestamp of the cart
                 cart.UpdateAt = DateTime.Now;
 
                 await _context.SaveChangesAsync();
@@ -177,17 +197,17 @@ namespace LovingEssentials.DataAccess.DAOs
                 // Map to CartDTO
                 var cartDto = _mapper.Map<CartDTO>(cart);
 
-                // Optionally, populate the ProductDTO objects in the cart DTO
-                foreach (var kvp in cartDto.Products.ToList())
+                // Optionally, populate the ProductDTOobjects in the cart DTO
+                foreach (var kvp in productsDict)
                 {
                     var productDto = await _context.Products
-                        .Where(p => p.Id == kvp.Key.Id)
+                        .Where(p => p.Id == kvp.Key)
                         .ProjectTo<ProductDTO>(_mapper.ConfigurationProvider)
                         .FirstOrDefaultAsync();
 
                     if (productDto != null)
                     {
-                        cartDto.Products[productDto] = kvp.Value;
+                        cartDto.Products.Add(kvp.Value, productDto);
                     }
                 }
 
@@ -198,6 +218,7 @@ namespace LovingEssentials.DataAccess.DAOs
                 throw new Exception("Error removing product from cart", ex);
             }
         }
+
         public async Task DeleteCart(int cartId)
         {
             try
@@ -220,4 +241,3 @@ namespace LovingEssentials.DataAccess.DAOs
         }
     }
 }
-
