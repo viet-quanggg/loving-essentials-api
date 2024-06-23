@@ -55,5 +55,15 @@ namespace LovingEssentials.DataAccess.DAOs
                 throw new Exception(ex.Message);
             }
         }
+        public async Task<ProductDTO> getProductbyId(int id)
+        {
+            try { 
+                var result = await _context.Products
+                    .ProjectTo<ProductDTO>(_mapper.ConfigurationProvider)
+                    .Where(p => p.Id == id).FirstOrDefaultAsync();
+                return result; 
+            }
+            catch(Exception ex) { throw new Exception(ex.Message); }
+        }
     }
 }

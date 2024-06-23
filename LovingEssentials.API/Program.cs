@@ -51,6 +51,9 @@ builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<CategoryDAO>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
+builder.Services.AddScoped<CartDAO>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+
 builder.Services.AddScoped<AddressDAO>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 
