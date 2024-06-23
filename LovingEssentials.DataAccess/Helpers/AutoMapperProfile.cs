@@ -11,6 +11,9 @@ namespace LovingEssentials.DataAccess.Helpers
             CreateMap<Product, ProductDTO>()
                 .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.Name))
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+
+            CreateMap<Cart ,CartDTO>()
+               .ForMember(dest => dest.Products.Keys, opt => opt.MapFrom(src => src.Products));
         }
     }
 }
