@@ -32,4 +32,35 @@ public class AddressRepository : IAddressRepository
         }
         return null;
     }
+
+    public async Task<UserAddressDTO> GetAddressById(int addId)
+    {
+        if (addId != null)
+        {
+            var addresses = await  _addressDao.GetAddressById(addId);
+            return addresses;
+        }
+        return null;
+    }
+
+    public async Task<bool> UpdateAddress(UpdateAddressDto updateAddressDto)
+    {
+        if (updateAddressDto != null)
+        {
+          await _addressDao.UpdateAddress(updateAddressDto);
+          return true;
+        }
+
+        return false;
+    }
+
+    public async Task<bool> DeleteAddress(int addId)
+    {
+        if (addId != null)
+        {
+            await _addressDao.DeleteAddress(addId);
+            return true;
+        }
+        return false;
+    }
 }
