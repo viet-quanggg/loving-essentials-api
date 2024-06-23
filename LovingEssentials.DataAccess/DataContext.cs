@@ -23,7 +23,8 @@ namespace LovingEssentials.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=LAPTOP-870DJRSV;Database=LovingDB;Trusted_Connection=false;user=sa;pwd=123456;TrustServerCertificate=True");
+            // optionsBuilder.UseSqlServer("Server=LAPTOP-870DJRSV;Database=LovingDB;Trusted_Connection=false;user=sa;pwd=123456;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Server=localhost;Database=LovingDB;Trusted_Connection=false;user=sa;pwd=123456@Aa;TrustServerCertificate=True");
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

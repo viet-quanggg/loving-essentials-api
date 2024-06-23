@@ -56,4 +56,55 @@ public class AddressDAO
 
         throw new ArgumentException();
     }
+    
+    public async  Task<UserAddressDTO> GetAddressById(int addId)
+    {
+        if (addId != null)
+        {
+            var address = await _context.Addresses
+                .Include(a => a.Users)
+                .FirstOrDefaultAsync(c => c.Id == addId);
+            var dto = _mapper.Map<UserAddressDTO>(address);
+
+            return dto;
+        }
+
+        throw new ArgumentException();
+    }
+
+    public async Task UpdateAddress(UpdateAddressDto dto)
+    {
+        var address = await _context.Addresses.FirstOrDefaultAsync(c => c.Id == dto.Id);
+        if (address != null)
+        {
+            address.City = dto.City;
+            address.District = dto.District;
+            address.Ward = dto.Ward;
+            address.Street = dto.Street;
+            address.HouseNumber = dto.HouseNumber;
+
+             _context.Addresses.Update(address);
+             await _context.SaveChangesAsync();
+             
+        }
+        else
+        {
+            throw new Exception("Address not found");
+        }
+    }
+    
+    public async Task DeleteAddress(int addId)
+    {
+        var address = await _context.Addresses.FirstOrDefaultAsync(c => c.Id == addId);
+        if (address != null)
+        {
+            _context.Addresses.Remove(address);
+            await _context.SaveChangesAsync();
+            
+        }
+        else
+        {
+            throw new Exception("Address not found");
+        }
+    }
 }

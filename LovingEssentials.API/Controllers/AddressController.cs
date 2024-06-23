@@ -31,4 +31,37 @@ public class AddressController : ControllerBase
 
         return BadRequest("User Id is null");
     }
+    
+    [HttpGet("/api/Address/GetAddressById/{addId}")]
+    public async Task<IActionResult> GetAddressById(int addId)
+    {
+        if (addId != null)
+        {
+            return Ok(await _addressRepository.GetAddressById(addId));
+        }
+
+        return BadRequest("Address Id is null");
+    }
+
+    [HttpDelete("/api/Address/DeleteAddress/{addId}")]
+    public async Task<IActionResult> DeleteAddress(int addId)
+    {
+        if (addId != null)
+        {
+            return Ok(await _addressRepository.DeleteAddress(addId));
+        }
+
+        return BadRequest("Address ID is null");
+    }
+    
+    [HttpPut("/api/Address/UpdateAddress")]
+    public async Task<IActionResult> UpdateAddress([FromForm] UpdateAddressDto updateAddressDto)
+    {
+         if (updateAddressDto != null)
+        {
+            return Ok(await _addressRepository.UpdateAddress(updateAddressDto));
+        }
+
+        return BadRequest("Address is null");
+    }
 }
