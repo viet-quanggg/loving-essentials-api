@@ -21,6 +21,11 @@ namespace LovingEssentials.DataAccess
         public DbSet<User> Users { get; set; }
         public DbSet<Cart> Carts { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=LAPTOP-870DJRSV;Database=LovingDB;Trusted_Connection=false;user=sa;pwd=123456;TrustServerCertificate=True");
+
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -14,6 +14,16 @@ namespace LovingEssentials.DataAccess.Helpers
 
             CreateMap<Cart ,CartDTO>()
                .ForMember(dest => dest.Products.Keys, opt => opt.MapFrom(src => src.Products));
+            CreateMap<Address, CreateAddressDTO>();
+            CreateMap<CreateAddressDTO, Address>();
+            CreateMap<UserAddress, User>();
+            CreateMap<Address,UserInfo>()
+                .ForMember(dest =>dest.PhoneNumber, opt => opt.MapFrom(a => a.Users.PhoneNumber))
+                .ForMember(dest =>dest.Email, opt => opt.MapFrom(a => a.Users.Email))
+                .ForMember(dest =>dest.Name, opt => opt.MapFrom(a => a.Users.Name));
+            CreateMap<Address, UserAddressDTO>();
+
+
         }
     }
 }
