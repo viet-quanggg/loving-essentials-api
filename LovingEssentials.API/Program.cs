@@ -33,6 +33,9 @@ builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<CategoryDAO>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
+builder.Services.AddScoped<OrderDAO>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
