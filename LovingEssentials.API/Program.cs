@@ -1,9 +1,11 @@
+using LovingEssentials.BusinessObject;
 using LovingEssentials.DataAccess;
 using LovingEssentials.DataAccess.DAOs;
 using LovingEssentials.DataAccess.Seed;
 using LovingEssentials.Repository.IRepository;
 using LovingEssentials.Repository.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -38,6 +40,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         });
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 builder.Services.AddScoped<UserDAO>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -88,8 +92,10 @@ var services = scope.ServiceProvider;
 try
 {
     var context = services.GetRequiredService<DataContext>();
+    var passwordHasher = services.GetRequiredService<IPasswordHasher<User>>();
+
     await context.Database.MigrateAsync();
-    await Seed.SeedUser(context);
+    await Seed.SeedUser(context, passwordHasher);
     await Seed.SeedBrand(context);
     await Seed.SeedCategory(context);
     await Seed.SeedProduct(context);
@@ -97,7 +103,7 @@ try
 catch (Exception ex)
 {
     var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex, "An error while seeding data");
+    logger.LogError(ex, "An error occurred while seeding data");
 }
 app.Run();
 
