@@ -1,4 +1,5 @@
 using LovingEssentials.BusinessObject;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,11 +8,12 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
+
 namespace LovingEssentials.DataAccess.Seed
 {
     public class Seed
     {
-        public static async Task SeedUser(DataContext _context)
+        public static async Task SeedUser(DataContext _context, IPasswordHasher<User> _passwordHasher)
         {
             if (await _context.Users.AnyAsync()) return;
 
@@ -21,9 +23,15 @@ namespace LovingEssentials.DataAccess.Seed
 
             foreach (var user in users)
             {
+                user.Password = HashPassword(_passwordHasher, user, user.Password);
                 await _context.Users.AddAsync(user);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        private static string HashPassword(IPasswordHasher<User> _passwordHasher, User account, string password)
+        {
+            return _passwordHasher.HashPassword(account, password);
         }
         public static async Task SeedBrand(DataContext _context)
         {
