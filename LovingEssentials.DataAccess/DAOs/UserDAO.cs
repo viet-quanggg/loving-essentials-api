@@ -12,16 +12,17 @@ public class UserDAO
         _context = context;
     }
 
-    public async Task<User> Login(string email, string password)
+    public async Task<User> Login(string email)
     {
         User user = null;
         try
         {
-            if (email != null && password != null)
+            if (email != null)
             {
-                user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+                user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
             }
-        }catch(Exception ex)
+        }
+        catch (Exception ex)
         {
             throw new Exception(ex.Message);
         }
@@ -85,6 +86,18 @@ public class UserDAO
             throw new Exception(ex.Message);
         }
         return user;
+    }
+
+    public async Task<bool> UserExistsByEmail(string email)
+    {
+        try
+        {
+            return await _context.Users.AnyAsync(u => u.Email == email);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
     public async Task CreateUser(User user)
