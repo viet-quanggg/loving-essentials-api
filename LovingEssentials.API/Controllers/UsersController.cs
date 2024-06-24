@@ -66,6 +66,21 @@ namespace LovingEssentials.API.Controllers
             }
             return BadRequest();
         }
+        [HttpPut("udpate-profile")]
+        public async Task<IActionResult> UpdateProfile([FromBody] UserProfileDTO user)
+        {
+            var u = await _userRepository.GetUserById(user.Id);
+            if (u != null)
+            {
+                u.Name = user.Name;
+                u.Email = user.Email;
+                u.PhoneNumber = user.PhoneNumber;
+
+                await _userRepository.UpdateUser(u);
+                return Ok(u);
+            }
+            return BadRequest();
+        }
         [HttpDelete("delete-user/{id}")]
         public async Task<IActionResult> DeleteUser([FromRoute] int id)
         {
