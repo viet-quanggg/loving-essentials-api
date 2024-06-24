@@ -17,12 +17,16 @@ namespace LovingEssentials.DataAccess.Helpers
 
             CreateMap<Address, CreateAddressDTO>();
             CreateMap<CreateAddressDTO, Address>();
+            
             CreateMap<UserAddress, User>();
-            CreateMap<Address,UserInfo>()
-                .ForMember(dest =>dest.PhoneNumber, opt => opt.MapFrom(a => a.Users.PhoneNumber))
-                .ForMember(dest =>dest.Email, opt => opt.MapFrom(a => a.Users.Email))
-                .ForMember(dest =>dest.Name, opt => opt.MapFrom(a => a.Users.Name));
-            CreateMap<Address, UserAddressDTO>();
+
+            CreateMap<User, UserInfo>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(a => a.Name))
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(a => a.PhoneNumber))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(a => a.Email));
+            CreateMap<Address, UserAddressDTO>()
+                .ForMember(dest => dest.UserInformation, opt => opt.MapFrom(a => a.Users));
+
 
 
         }
