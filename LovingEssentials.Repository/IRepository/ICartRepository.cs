@@ -14,5 +14,6 @@ namespace LovingEssentials.Repository.IRepository
         Task<CartDTO> AddProductsToCartAsync(int buyerId, int productId, int quantity);
         Task<CartDTO> RemoveProductFromCartAsync(int buyerId, int productId, int quantity);
         Task<CartDTO> GetCartByIdAsync(int cartId);
+        Task<List<CartDTO>> GetAllCartsofUserAsync(int userid);
     }
 }
