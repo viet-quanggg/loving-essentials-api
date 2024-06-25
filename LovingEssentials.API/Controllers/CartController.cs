@@ -51,6 +51,23 @@ namespace LovingEssentials.API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpGet("check/{userid}")]
+        public async Task<IActionResult> GetCartofUser(int userid)
+        {
+            try
+            {
+                var cart = await _cartRepository.GetAllCartsofUserAsync(userid);
+                if (cart == null)
+                {
+                    return NotFound();
+                }
+                return Ok(cart);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
         // POST: api/cart/{buyerId}/{productId}/{quantity}
         [HttpPost("{buyerId}/{productId}/{quantity}")]

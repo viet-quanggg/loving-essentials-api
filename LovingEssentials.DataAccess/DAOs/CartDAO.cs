@@ -36,7 +36,7 @@ namespace LovingEssentials.DataAccess.DAOs
                     var productsDict = JsonConvert.DeserializeObject<Dictionary<int, int>>(productsJson);
 
                     var cartDto = _mapper.Map<CartDTO>(cart);
-
+                    double totalPrice = 0;
 
                     foreach (var kvp in productsDict)
                     {
@@ -47,9 +47,15 @@ namespace LovingEssentials.DataAccess.DAOs
 
                         if (productDto != null)
                         {
+                            double productPrice = productDto.Price;
+                            int quantity = kvp.Value;
+                            double productTotalPrice = productPrice * quantity;
+                            totalPrice += productTotalPrice;
+
                             cartDto.Products.Add(kvp.Value, productDto);
                         }
                     }
+                    cartDto.Price = totalPrice;
                     list.Add(cartDto);
                 }
                 return list;
@@ -60,6 +66,47 @@ namespace LovingEssentials.DataAccess.DAOs
             }
         }
 
+        public async Task<List<CartDTO>> GetCartsofUser(int userid)
+        {
+            try
+            {
+                var carts = await _context.Carts.Where(c => c.BuyerId == userid).ToListAsync();
+                var list = new List<CartDTO>();
+                foreach (var cart in carts)
+                {
+                    var productsJson = cart.ProductsJson;
+                    var productsDict = JsonConvert.DeserializeObject<Dictionary<int, int>>(productsJson);
+
+                    var cartDto = _mapper.Map<CartDTO>(cart);
+                    double totalPrice = 0;
+
+                    foreach (var kvp in productsDict)
+                    {
+                        var productDto = await _context.Products
+                            .Where(p => p.Id == kvp.Key)
+                            .ProjectTo<ProductDTO>(_mapper.ConfigurationProvider)
+                            .FirstOrDefaultAsync();
+
+                        if (productDto != null)
+                        {
+                            double productPrice = productDto.Price;
+                            int quantity = kvp.Value;
+                            double productTotalPrice = productPrice * quantity;
+                            totalPrice += productTotalPrice;
+
+                            cartDto.Products.Add(kvp.Value, productDto);
+                        }
+                    }
+                    cartDto.Price = totalPrice;
+                    list.Add(cartDto);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public async Task<CartDTO> GetCartByIdAsync(int cartId)
         {
             try

@@ -75,5 +75,17 @@ namespace LovingEssentials.Repository.Repository
                 throw new Exception($"Error retrieving cart with ID {cartId} from repository", ex);
             }
         }
+
+        public async Task<List<CartDTO>> GetAllCartsofUserAsync(int userid)
+        {
+            try
+            {
+                return await _cartDAO.GetCartsofUser(userid);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving carts from repository", ex);
+            }
+        }
     }
 }
