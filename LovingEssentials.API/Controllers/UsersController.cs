@@ -2,7 +2,9 @@
 using LovingEssentials.DataAccess.DTOs;
 using LovingEssentials.Repository.IRepository;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Win32;
 
 namespace LovingEssentials.API.Controllers
 {
@@ -11,9 +13,11 @@ namespace LovingEssentials.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
-        public UsersController(IUserRepository userRepository)
+        private readonly IPasswordHasher<User> _passwordHasher;
+        public UsersController(IUserRepository userRepository, IPasswordHasher<User> passwordHasher)
         {
             _userRepository = userRepository;
+            _passwordHasher = passwordHasher;
         }
 
         [HttpGet]
@@ -40,7 +44,7 @@ namespace LovingEssentials.API.Controllers
                 Name = user.Name,
                 Email = user.Email,
                 Role = user.Role,
-                Password = user.Password,
+                Password = HashPassword(new User(), user.Password),
                 PhoneNumber = user.PhoneNumber,
                 Status = user.Status
             };
@@ -91,6 +95,10 @@ namespace LovingEssentials.API.Controllers
                 return Ok("Deleted Successfuilly");
             }
             return BadRequest();
+        }
+        private string HashPassword(User account, string password)
+        {
+            return _passwordHasher.HashPassword(account, password);
         }
     }
 }
