@@ -70,7 +70,7 @@ namespace LovingEssentials.DataAccess.DAOs
         {
             try
             {
-                var carts = await _context.Carts.Where(c => c.BuyerId == userid).ToListAsync();
+                var carts = await _context.Carts.Where(c => c.BuyerId == userid).OrderByDescending(c=>c.UpdateAt).ToListAsync();
                 var list = new List<CartDTO>();
                 foreach (var cart in carts)
                 {
