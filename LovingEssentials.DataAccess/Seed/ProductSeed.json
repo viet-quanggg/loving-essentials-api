@@ -6,7 +6,8 @@
     "Price": 1085000,
     "BrandId": 3,
     "CategoryId": 1,
-    "ImageUrl": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/jiaxqnzxjnbscmebhxud"
+    "ImageUrl": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/jiaxqnzxjnbscmebhxud",
+    "Status": 1
   },
   {
     "Name": "Sữa Friso Gold số 4 1400g",
@@ -15,7 +16,8 @@
     "Price": 735000,
     "BrandId": 8,
     "CategoryId": 1,
-    "ImageUrl": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/abvaj0da2bbs920xr1qd"
+    "ImageUrl": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/abvaj0da2bbs920xr1qd",
+    "Status": 1
   },
   {
     "Name": "Sữa Abbott Grow 4 900g",
@@ -24,7 +26,8 @@
     "Price": 335000,
     "BrandId": 3,
     "CategoryId": 1,
-    "ImageUrl": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/abvaj0da2bbs920xr1qd"
+    "ImageUrl": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/abvaj0da2bbs920xr1qd",
+    "Status": 1
   },
   {
     "Name": "Sản phẩm dinh dưỡng Friso Gold Pro 4",
@@ -33,7 +36,8 @@
     "Price": 595000,
     "BrandId": 8,
     "CategoryId": 1,
-    "ImageUrl": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/abvaj0da2bbs920xr1qd"
+    "ImageUrl": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/abvaj0da2bbs920xr1qd",
+    "Status": 1
   },
   {
     "Name": "Sữa bầu Friso Mum Gold 900g hương cam",
@@ -42,6 +46,7 @@
     "Price": 539000,
     "BrandId": 8,
     "CategoryId": 4,
-    "ImageUrl": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/abvaj0da2bbs920xr1qd"
+    "ImageUrl": "https://res.cloudinary.com/dlr9litcn/image/upload/f_auto,q_auto/v1/MomMomMilk/abvaj0da2bbs920xr1qd",
+    "Status": 1
   }
 ]
