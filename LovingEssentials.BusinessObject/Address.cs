@@ -15,6 +15,5 @@ namespace LovingEssentials.BusinessObject
         public string District { get; set; }
         public string City { get; set; }
         public User Users { get; set; }
-
     }
 }
