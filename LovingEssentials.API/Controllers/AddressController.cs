@@ -9,7 +9,7 @@ namespace LovingEssentials.API.Controllers;
 public class AddressController : ControllerBase
 {
     private readonly IAddressRepository _addressRepository;
-
+    
     public AddressController(IAddressRepository addressRepository)
     {
         _addressRepository = addressRepository;
