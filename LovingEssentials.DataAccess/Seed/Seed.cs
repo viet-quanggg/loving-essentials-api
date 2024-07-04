@@ -87,5 +87,19 @@ namespace LovingEssentials.DataAccess.Seed
                 await _context.SaveChangesAsync();
             }
         }
+        public static async Task SeedOrders(DataContext _context)
+        {
+            if (await _context.Orders.AnyAsync()) { return; }
+
+            var order = await File.ReadAllTextAsync("../LovingEssentials.DataAccess/Seed/OrderSeed.json");
+            var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var m = JsonSerializer.Deserialize<List<Order>>(order, jsonOptions);
+
+            foreach (var i in m)
+            {
+                await _context.Orders.AddAsync(i);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

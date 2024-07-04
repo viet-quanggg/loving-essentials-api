@@ -13,6 +13,11 @@ namespace LovingEssentials.DataAccess.Helpers
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
 
             CreateMap<Order, OrderDTO>()
+                .ForMember(dest => dest.ShipperName, opt => opt.MapFrom(src => src.Shippers.Name))
+                .ReverseMap();
+            CreateMap<OrderDetail, OrderDetailDTO>()
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Products.Name))
+                .ForMember(dest => dest.Url, opt => opt.MapFrom(src => src.Products.ImageURL))
                 .ReverseMap();
 
             CreateMap<Cart ,CartDTO>();

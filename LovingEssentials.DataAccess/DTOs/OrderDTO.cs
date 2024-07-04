@@ -14,7 +14,6 @@ namespace LovingEssentials.DataAccess.DTOs
         public DateTime Updated { get; set; }
         public double TotalPrice { get; set; }
         public int BuyerId { get; set; }
-        public int ShipperId { get; set; }
-        public ICollection<OrderDetail> OrderDetails { get; set; }
+        public string ShipperName { get; set; }
     }
 }
