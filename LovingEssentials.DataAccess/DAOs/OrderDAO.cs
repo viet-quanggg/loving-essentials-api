@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LovingEssentials.BusinessObject;
 using LovingEssentials.DataAccess.DTOs;
+using LovingEssentials.DataAccess.DTOs.Shipper;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,7 @@ namespace LovingEssentials.DataAccess.DAOs
                     .Include(o => o.OrderDetails)
                     .ToListAsync();
                 var result = _mapper.Map<List<OrderDTO>>(orders);
+
                 return result;
             }
             catch (Exception ex)
@@ -49,6 +51,7 @@ namespace LovingEssentials.DataAccess.DAOs
                 throw new Exception(ex.Message);
             }
         }
+
         public async Task<List<OrderDetailDTO>> GetOrderDetailsById(int orderid)
         {
             try
@@ -57,11 +60,69 @@ namespace LovingEssentials.DataAccess.DAOs
                     .Include(od => od.Products)
                     .ToListAsync();
                 var result = _mapper.Map<List<OrderDetailDTO>>(orders);
+              return result;
+            }
+            catch (Exception ex)
+            {
+              throw new Exception(ex.Message);
+            }
+        }
+        public async Task<List<OrderResponse>> GetOrdersByShipperId(int shipperId, OrderStatus? status = null, string buyerName = null, string productName = null)
+        {
+            try
+            {
+                var query = _context.Orders
+                    .Include(o => o.Buyers)
+                    .Include(o => o.OrderDetails)
+                        .ThenInclude(od => od.Products)
+                    .AsQueryable();
+
+                query = query.Where(o => o.ShipperId == shipperId);
+
+                if (status.HasValue)
+                {
+                    query = query.Where(o => o.Status == status.Value);
+                }
+
+                if (!string.IsNullOrWhiteSpace(buyerName))
+                {
+                    query = query.Where(o => o.Buyers.Name.Contains(buyerName) || o.OrderDetails.Any(od => od.Products.Name.Contains(buyerName)));
+                }
+
+                if (!string.IsNullOrWhiteSpace(productName))
+                {
+                    query = query.Where(o => o.OrderDetails.Any(od => od.Products.Name.Contains(productName)));
+                }
+
+                var orders = await query.ToListAsync();
+                var result = _mapper.Map<List<OrderResponse>>(orders);
+
                 return result;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                 throw new Exception($"Error retrieving data from the database: {ex.Message}");
+            }
+        }
+
+        public async Task<bool> UpdateOrderStatusByShipper(UpdateStatusRequest request)
+        {
+            try
+            {
+                var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == request.orderId && o.ShipperId == request.shipperId);
+                if (order == null)
+                {
+                    return false;
+                }
+                order.Status = request.newStatus;
+                _context.Orders.Update(order);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error updating order status: {ex.Message}");
             }
         }
     }

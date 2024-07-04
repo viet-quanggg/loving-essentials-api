@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using LovingEssentials.BusinessObject;
 using LovingEssentials.DataAccess.DTOs;
+using LovingEssentials.DataAccess.DTOs.Admin;
+using LovingEssentials.DataAccess.DTOs.Shipper;
+using System;
 
 namespace LovingEssentials.DataAccess.Helpers
 {
@@ -34,6 +37,21 @@ namespace LovingEssentials.DataAccess.Helpers
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(a => a.Email));
             CreateMap<Address, UserAddressDTO>()
                 .ForMember(dest => dest.UserInformation, opt => opt.MapFrom(a => a.Users));
+
+            CreateMap<Product, CreateProductDTO>().ReverseMap();
+            CreateMap<Product, EditProductDTO>();
+            CreateMap<OrderResponse, Order>();
+            CreateMap<OrderDetailResponse, OrderDetail>();
+            CreateMap<UserProfileDTO, User>();
+
+            CreateMap<Order, OrderResponse>()
+            .ForMember(dest => dest.Buyers, act => act.MapFrom(src => src.Buyers))
+            .ForMember(dest => dest.OrderDetails, act => act.MapFrom(src => src.OrderDetails));
+
+            CreateMap<User, UserProfileDTO>();
+            CreateMap<OrderDetail, OrderDetailResponse>()
+                .ForMember(dest => dest.Products, act => act.MapFrom(src => src.Products));
+            CreateMap<Product, ProductDTO>();
 
 
         }

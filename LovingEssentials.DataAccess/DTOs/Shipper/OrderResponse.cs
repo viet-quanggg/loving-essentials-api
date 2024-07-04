@@ -5,20 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LovingEssentials.DataAccess.DTOs
+namespace LovingEssentials.DataAccess.DTOs.Shipper
 {
-    public class OrderDTO
+    public class OrderResponse
     {
         public int Id { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
         public double TotalPrice { get; set; }
         public int BuyerId { get; set; }
-
-        public string ShipperName { get; set; }
-
         public int ShipperId { get; set; }
         public OrderStatus Status { get; set; }
-        public ICollection<OrderDetail> OrderDetails { get; set; }
+        public UserProfileDTO Buyers { get; set; }
+        public ICollection<OrderDetailResponse> OrderDetails { get; set; }
     }
 }

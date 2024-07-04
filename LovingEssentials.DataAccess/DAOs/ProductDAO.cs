@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using LovingEssentials.BusinessObject;
 using LovingEssentials.DataAccess.DTOs;
+using LovingEssentials.DataAccess.DTOs.Admin;
 using Microsoft.EntityFrameworkCore;
 
 namespace LovingEssentials.DataAccess.DAOs
@@ -22,6 +23,7 @@ namespace LovingEssentials.DataAccess.DAOs
             try
             {
                 var result = await _context.Products
+                    .Where(x => x.Status == 1)
                     .ProjectTo<ProductDTO>(_mapper.ConfigurationProvider)
                     .ToListAsync();
                 return result;
@@ -35,7 +37,7 @@ namespace LovingEssentials.DataAccess.DAOs
         {
             try
             {
-                var result = _context.Products.AsQueryable();
+                var result = _context.Products.Where(x => x.Status == 1).AsQueryable();
                 if(!string.IsNullOrEmpty(search))
                 {
                     result = result.Where(x => x.Name.Contains(search));
@@ -65,5 +67,86 @@ namespace LovingEssentials.DataAccess.DAOs
             }
             catch(Exception ex) { throw new Exception(ex.Message); }
         }
+        public async Task<Product> GetProductbyIdAdmin(int id)
+        {
+            try
+            {
+                var result = await _context.Products
+                    .FirstOrDefaultAsync(p => p.Id == id);
+                return result;
+            }
+            catch (Exception ex) { throw new Exception(ex.Message); }
+        }
+
+        public async Task<List<ProductDTO>> GetProductsForAdmin()
+        {
+            try
+            {
+                var result = await _context.Products
+                    .ProjectTo<ProductDTO>(_mapper.ConfigurationProvider)
+                    .ToListAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> CreateProduct(CreateProductDTO createProductDTO)
+        {
+            try
+            {
+                var product = _mapper.Map<Product>(createProductDTO);
+                await _context.Products.AddAsync(product);
+                var result = await _context.SaveChangesAsync() > 0;
+                return result;
+            } catch
+            {
+                return false;
+            }
+            
+        }
+        public async Task<bool> EditProduct(EditProductDTO editProductDTO)
+        {
+            try
+            {
+                var existedProduct = await _context.Products.FindAsync(editProductDTO.Id);
+                if (existedProduct != null)
+                {
+                    existedProduct.Name = editProductDTO.Name;
+                    existedProduct.Quantity = editProductDTO.Quantity;
+                    existedProduct.Price = editProductDTO.Price;
+                    existedProduct.CategoryId = editProductDTO.CategoryId;
+                    existedProduct.BrandId = editProductDTO.BrandId;
+                    existedProduct.ImageURL = editProductDTO.ImageURL;
+                    existedProduct.Status = editProductDTO.Status;
+                }
+                var result = await _context.SaveChangesAsync() > 0;
+                return result;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public async Task<bool> DeleteProduct(int id)
+        {
+            try
+            {
+                var existedProduct = await _context.Products.FindAsync(id);
+                if (existedProduct != null)
+                {
+                    existedProduct.Status = 0;
+                }
+                var result = await _context.SaveChangesAsync() > 0;
+                return result;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
     }
 }

@@ -9,14 +9,14 @@ namespace LovingEssentials.API.Controllers;
 public class AddressController : ControllerBase
 {
     private readonly IAddressRepository _addressRepository;
-
+    
     public AddressController(IAddressRepository addressRepository)
     {
         _addressRepository = addressRepository;
     }
 
     [HttpPost("/api/Address/Add-Address")]
-    public async Task<IActionResult> AddAddress([FromForm] CreateAddressDTO createAddressDto)
+    public async Task<IActionResult> AddAddress([FromBody] CreateAddressDTO createAddressDto)
     {
         return Ok(await _addressRepository.AddAddress(createAddressDto));
     }
@@ -55,9 +55,9 @@ public class AddressController : ControllerBase
     }
     
     [HttpPut("/api/Address/UpdateAddress")]
-    public async Task<IActionResult> UpdateAddress([FromForm] UpdateAddressDto updateAddressDto)
+    public async Task<IActionResult> UpdateAddress([FromBody] UpdateAddressDto updateAddressDto)
     {
-         if (updateAddressDto != null)
+        if (updateAddressDto != null)
         {
             return Ok(await _addressRepository.UpdateAddress(updateAddressDto));
         }

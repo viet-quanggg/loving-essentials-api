@@ -37,7 +37,7 @@ namespace LovingEssentials.DataAccess.DAOs
 
                     var cartDto = _mapper.Map<CartDTO>(cart);
                     double totalPrice = 0;
-
+                    int i = 0;
                     foreach (var kvp in productsDict)
                     {
                         var productDto = await _context.Products
@@ -51,8 +51,11 @@ namespace LovingEssentials.DataAccess.DAOs
                             int quantity = kvp.Value;
                             double productTotalPrice = productPrice * quantity;
                             totalPrice += productTotalPrice;
+                            CartItemDTO cartItem = new CartItemDTO();
+                            cartItem.Product = productDto;
+                            cartItem.Quantity = kvp.Value;
 
-                            cartDto.Products.Add(kvp.Value, productDto);
+                            cartDto.Products.Add(cartItem);
                         }
                     }
                     cartDto.Price = totalPrice;
@@ -70,7 +73,7 @@ namespace LovingEssentials.DataAccess.DAOs
         {
             try
             {
-                var carts = await _context.Carts.Where(c => c.BuyerId == userid).ToListAsync();
+                var carts = await _context.Carts.Where(c => c.BuyerId == userid).OrderByDescending(c=>c.UpdateAt).ToListAsync();
                 var list = new List<CartDTO>();
                 foreach (var cart in carts)
                 {
@@ -79,7 +82,7 @@ namespace LovingEssentials.DataAccess.DAOs
 
                     var cartDto = _mapper.Map<CartDTO>(cart);
                     double totalPrice = 0;
-
+                    int i = 0;
                     foreach (var kvp in productsDict)
                     {
                         var productDto = await _context.Products
@@ -94,7 +97,11 @@ namespace LovingEssentials.DataAccess.DAOs
                             double productTotalPrice = productPrice * quantity;
                             totalPrice += productTotalPrice;
 
-                            cartDto.Products.Add(kvp.Value, productDto);
+                            CartItemDTO cartItem = new CartItemDTO();
+                            cartItem.Product = productDto;
+                            cartItem.Quantity = kvp.Value;
+                            
+                            cartDto.Products.Add(cartItem);
                         }
                     }
                     cartDto.Price = totalPrice;
@@ -176,7 +183,7 @@ namespace LovingEssentials.DataAccess.DAOs
                 var cartDto = _mapper.Map<CartDTO>(cart);
 
                 // Optionally, populate the ProductDTO objects in the cart DTO
-
+                int i = 0;
                 foreach (var kvp in productsDict)
                 {
                     var productDto = await _context.Products
@@ -186,7 +193,12 @@ namespace LovingEssentials.DataAccess.DAOs
 
                     if (productDto != null)
                     {
-                        cartDto.Products.Add(kvp.Value, productDto);
+                        CartItemDTO cartItem = new CartItemDTO();
+                        cartItem.Product = productDto;
+                        cartItem.Quantity = kvp.Value;
+                        
+                        i++;
+                        cartDto.Products.Add(cartItem);
                     }
                 }
 
@@ -194,7 +206,7 @@ namespace LovingEssentials.DataAccess.DAOs
             }
             catch (Exception ex)
             {
-                throw new Exception("Error adding products to cart", ex);
+                throw new Exception("Error adding products to cart" + ex.Message);
             }
         }
 
@@ -243,7 +255,7 @@ namespace LovingEssentials.DataAccess.DAOs
 
                 // Map to CartDTO
                 var cartDto = _mapper.Map<CartDTO>(cart);
-
+                int i = 0;
                 // Optionally, populate the ProductDTOobjects in the cart DTO
                 foreach (var kvp in productsDict)
                 {
@@ -254,7 +266,12 @@ namespace LovingEssentials.DataAccess.DAOs
 
                     if (productDto != null)
                     {
-                        cartDto.Products.Add(kvp.Value, productDto);
+                        CartItemDTO cartItem = new CartItemDTO();
+                        cartItem.Product = productDto;
+                        cartItem.Quantity = kvp.Value;
+                        
+                        i++;
+                        cartDto.Products.Add(cartItem);
                     }
                 }
 
