@@ -16,6 +16,11 @@ namespace LovingEssentials.DataAccess.DTOs
         public int ProductId { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }
-        public Dictionary<int, ProductDTO> Products { get; set; } = new Dictionary<int, ProductDTO>();
+        public List<CartItemDTO> Products { get; set; } = new List<CartItemDTO>();
+    }
+    public class CartItemDTO
+    {
+        public int Quantity { get; set; }
+        public ProductDTO Product { get; set; }
     }
 }
