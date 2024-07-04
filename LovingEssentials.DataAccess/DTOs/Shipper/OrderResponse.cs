@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LovingEssentials.DataAccess.DTOs
+namespace LovingEssentials.DataAccess.DTOs.Shipper
 {
-    public class OrderDTO
+    public class OrderResponse
     {
         public int Id { get; set; }
         public DateTime Created { get; set; }
@@ -16,6 +16,7 @@ namespace LovingEssentials.DataAccess.DTOs
         public int BuyerId { get; set; }
         public int ShipperId { get; set; }
         public OrderStatus Status { get; set; }
-        public ICollection<OrderDetail> OrderDetails { get; set; }
+        public UserProfileDTO Buyers { get; set; }
+        public ICollection<OrderDetailResponse> OrderDetails { get; set; }
     }
 }

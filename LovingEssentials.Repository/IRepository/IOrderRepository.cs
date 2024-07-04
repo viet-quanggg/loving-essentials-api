@@ -1,4 +1,6 @@
-﻿using LovingEssentials.DataAccess.DTOs;
+﻿using LovingEssentials.BusinessObject;
+using LovingEssentials.DataAccess.DTOs;
+using LovingEssentials.DataAccess.DTOs.Shipper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +13,7 @@ namespace LovingEssentials.Repository.IRepository
     {
         Task<List<OrderDTO>> GetOrders();
         Task<List<OrderDTO>> GetOrdersByUserId(int userId);
+        Task<List<OrderResponse>> GetOrdersByShipperId(int shipperId, OrderStatus? status = null, string buyerName = null, string productName = null);
+        Task<bool> UpdateOrderStatusByShipper(UpdateStatusRequest request);
     }
 }
