@@ -13,7 +13,11 @@ namespace LovingEssentials.Repository.IRepository
     {
         Task<List<OrderDTO>> GetOrders();
         Task<List<OrderDTO>> GetOrdersByUserId(int userId);
+
+        Task<List<OrderDetailDTO>> GetOrderDetailsById(int orderid);
+
         Task<List<OrderResponse>> GetOrdersByShipperId(int shipperId, OrderStatus? status = null, string buyerName = null, string productName = null);
         Task<bool> UpdateOrderStatusByShipper(UpdateStatusRequest request);
+
     }
 }

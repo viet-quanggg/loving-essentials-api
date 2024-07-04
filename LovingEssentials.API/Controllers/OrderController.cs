@@ -2,6 +2,7 @@
 using LovingEssentials.DataAccess.DTOs;
 using LovingEssentials.DataAccess.DTOs.Shipper;
 using LovingEssentials.Repository.IRepository;
+using LovingEssentials.Repository.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,20 @@ namespace LovingEssentials.API.Controllers
             var result = await _orderRepository.GetOrders();
             return result;
         }
+
+        [HttpGet("detail")]
+        public async Task<ActionResult<List<OrderDTO>>> GetProductbyId(int Id)
+        {
+            var result = await _orderRepository.GetOrdersByUserId(Id);
+            return result;
+        }
+        [HttpGet("order-detail")]
+        public async Task<ActionResult<List<OrderDetailDTO>>> GetOrderDetailbyId(int orderid)
+        {
+            var result = await _orderRepository.GetOrderDetailsById(orderid);
+            return result;
+        }
+        
         [HttpGet("ByShipper/{shipperId}")]
         public async Task<ActionResult<List<OrderResponse>>> GetOrdersByShipperId(int shipperId, [FromQuery] OrderStatus? status = null, [FromQuery] string buyerName = null, [FromQuery] string productName = null)
         {
@@ -62,6 +77,7 @@ namespace LovingEssentials.API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error updating order status: {ex.Message}");
             }
+
         }
     }
 }

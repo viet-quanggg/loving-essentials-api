@@ -27,6 +27,11 @@ namespace LovingEssentials.Repository.Repository
         {
             return await _orderDAO.GetOrdersByUserId(userId);
         }
+
+        public async Task<List<OrderDetailDTO>> GetOrderDetailsById(int orderid)
+        {
+            return await _orderDAO.GetOrderDetailsById(orderid);
+        }
         public async Task<List<OrderResponse>> GetOrdersByShipperId(int shipperId, OrderStatus? status = null, string buyerName = null, string productName = null)
         {
             return await _orderDAO.GetOrdersByShipperId(shipperId, status, buyerName);

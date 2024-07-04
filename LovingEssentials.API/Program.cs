@@ -1,3 +1,4 @@
+using LovingEssentials.API.Helpers;
 using LovingEssentials.BusinessObject;
 using LovingEssentials.DataAccess;
 using LovingEssentials.DataAccess.DAOs;
@@ -17,7 +18,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new CustomDateTimeConverter("yyyy-MM-ddTHH:mm:ssZ"));
+    });
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication();
 
@@ -102,6 +107,7 @@ try
     await Seed.SeedBrand(context);
     await Seed.SeedCategory(context);
     await Seed.SeedProduct(context);
+    await Seed.SeedOrders(context);
 }
 catch (Exception ex)
 {
