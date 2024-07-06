@@ -13,8 +13,10 @@ namespace LovingEssentials.BusinessObject
         public DateTime Updated { get; set; }
         public double TotalPrice { get; set; }
         public int BuyerId { get; set; }
-        public int ShipperId { get; set; }
-        public OrderStatus Status { get; set; }
+        public int? ShipperId { get; set; }
+        public int AddressId { get; set; }
+        public OrderStatus Status { get; set; } = OrderStatus.Pending;
+        public Address Address { get; set; }
         public User Buyers { get; set; }
         public User Shippers { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
