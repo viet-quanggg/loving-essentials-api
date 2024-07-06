@@ -98,6 +98,19 @@ namespace LovingEssentials.API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpDelete("clear/{buyerId}/{productId}")]
+        public async Task<IActionResult> ClearProductFromCart(int buyerId, int productId)
+        {
+            try
+            {
+                var cart = await _cartRepository.ClearProductFromCartAsync(buyerId, productId);
+                return Ok(cart);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
         // DELETE: api/cart/{cartId}
         [HttpDelete("{cartId}")]

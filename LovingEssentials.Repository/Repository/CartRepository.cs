@@ -64,6 +64,17 @@ namespace LovingEssentials.Repository.Repository
                 throw new Exception("Error removing product from cart in repository", ex);
             }
         }
+        public async Task<CartDTO> ClearProductFromCartAsync(int buyerId, int productId)
+        {
+            try
+            {
+                return await _cartDAO.ClearProductFromCart(buyerId, productId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error removing product from cart in repository", ex);
+            }
+        }
         public async Task<CartDTO> GetCartByIdAsync(int cartId)
         {
             try

@@ -303,5 +303,52 @@ namespace LovingEssentials.DataAccess.DAOs
                 throw new Exception("Error deleting cart", ex);
             }
         }
+        public async Task<CartDTO> ClearProductFromCart(int buyerId, int productId)
+        {
+            try
+            {
+                // Retrieve the cart for the buyer
+                var cart = await _context.Carts
+                    .FirstOrDefaultAsync(c => c.BuyerId == buyerId);
+
+                if (cart == null)
+                {
+                    throw new Exception("Cart not found");
+                }
+
+                // Fetch the product
+                var product = await _context.Products.FindAsync(productId);
+                if (product == null)
+                {
+                    throw new Exception($"Product with ID {productId} not found");
+                }
+
+                // Check if the product exists in the cart
+                var productsDict = JsonConvert.DeserializeObject<Dictionary<int, int>>(cart.ProductsJson);
+                if (!productsDict.ContainsKey(productId))
+                {
+                    throw new Exception($"Product with ID {productId} not found in the cart");
+                }
+
+                // Remove the product from the cart or decrease its quantity
+                else
+                {
+                    productsDict.Remove(productId);
+                }
+
+                cart.ProductsJson = JsonConvert.SerializeObject(productsDict);
+
+                await _context.SaveChangesAsync();
+
+                // Map to CartDTO
+                var cartDto = _mapper.Map<CartDTO>(cart);
+
+                return cartDto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error removing product from cart", ex);
+            }
+        }
     }
 }
