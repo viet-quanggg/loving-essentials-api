@@ -64,6 +64,9 @@ builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<AddressDAO>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 
+builder.Services.AddScoped<StoreDAO>();
+builder.Services.AddScoped<IStoreRepository, StoreRepository>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
