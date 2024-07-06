@@ -166,6 +166,7 @@ namespace LovingEssentials.DataAccess.DAOs
                         OrderId = order.Id,
                         CreateAt = DateTime.Now,
                         UpdateAt = DateTime.Now,
+                        Price = productDto.Price,
                         ProductId = productDto.Id,
                         Quantity = kvp.Value
                     };
@@ -174,6 +175,8 @@ namespace LovingEssentials.DataAccess.DAOs
                     await _context.SaveChangesAsync();
                 }
 
+                _context.Carts.Remove(cart);
+                await _context.SaveChangesAsync();
                     return true;
             }
             catch (Exception ex)
