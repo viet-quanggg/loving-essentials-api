@@ -1,4 +1,5 @@
-﻿using LovingEssentials.BusinessObject;
+﻿using Azure.Core;
+using LovingEssentials.BusinessObject;
 using LovingEssentials.DataAccess.DAOs;
 using LovingEssentials.DataAccess.DTOs;
 using LovingEssentials.DataAccess.DTOs.Shipper;
@@ -40,6 +41,10 @@ namespace LovingEssentials.Repository.Repository
         public async Task<bool> UpdateOrderStatusByShipper(UpdateStatusRequest request)
         {
             return await _orderDAO.UpdateOrderStatusByShipper(request);
+        }
+        public async Task<bool> AddOrderByCartId(int cartId, int addressId)
+        {
+            return await _orderDAO.AddOrderByCartId(cartId, addressId);
         }
     }
 }
