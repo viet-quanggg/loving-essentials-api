@@ -79,6 +79,8 @@ PayOS payOS = new PayOS(configuration["Environment:PAYOS_CLIENT_ID"] ?? throw ne
     configuration["Environment:PAYOS_CHECKSUM_KEY"] ?? throw new Exception("Cannot find environment"));
 builder.Services.AddSingleton(payOS);
 
+builder.Services.AddScoped<StoreDAO>();
+builder.Services.AddScoped<IStoreRepository, StoreRepository>();
 
 builder.Services.AddCors(options =>
 {

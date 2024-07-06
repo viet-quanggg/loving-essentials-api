@@ -54,6 +54,9 @@ namespace LovingEssentials.DataAccess.Helpers
             CreateMap<Product, ProductDTO>();
 
 
+            CreateMap<Store, StoreDTO>().ReverseMap();
+            CreateMap<Store, CreateStoreDTO>().ReverseMap();
+
         }
     }
 }
