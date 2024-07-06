@@ -5,6 +5,7 @@
     "TotalPrice": 2170000,
     "BuyerId": 1,
     "ShipperId": 2,
+    "AddressId": 1,
     "Status": 1,
     "OrderDetails": [
       {
@@ -29,6 +30,7 @@
     "TotalPrice": 2170000,
     "BuyerId": 2,
     "ShipperId": 3,
+    "AddressId": 1,
     "Status": 1,
     "OrderDetails": [
       {

@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using LovingEssentials.BusinessObject;
 using LovingEssentials.DataAccess.DTOs;
 using LovingEssentials.DataAccess.DTOs.Shipper;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -140,6 +142,60 @@ namespace LovingEssentials.DataAccess.DAOs
                 await _context.SaveChangesAsync();
 
                 return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error updating order status: {ex.Message}");
+            }
+        }
+        public async Task<bool> AddOrderByCartId(int cartId, int addressId)
+        {
+            try
+            {
+                var cart = await _context.Carts.FirstOrDefaultAsync(o => o.Id == cartId);
+                if (cart == null)
+                {
+                    return false;
+                }
+
+                var order = new Order()
+                {
+                    Created = DateTime.Now,
+                    Updated = DateTime.Now,
+                    TotalPrice = cart.Price,
+                    BuyerId = cart.BuyerId,
+                    ShipperId = null,
+                    AddressId = addressId,
+                    Status = OrderStatus.Pending
+                };
+
+                await _context.Orders.AddAsync(order);
+                await _context.SaveChangesAsync();
+
+                var cartjson = cart.ProductsJson;
+                var productsDict = JsonConvert.DeserializeObject<Dictionary<int, int>>(cartjson);
+
+                foreach (var kvp in productsDict)
+                {
+                    var productDto = await _context.Products
+                            .Where(p => p.Id == kvp.Key)
+                            .ProjectTo<ProductDTO>(_mapper.ConfigurationProvider)
+                            .FirstOrDefaultAsync();
+
+                    var orderdetail = new OrderDetail()
+                    {
+                        OrderId = order.Id,
+                        CreateAt = DateTime.Now,
+                        UpdateAt = DateTime.Now,
+                        ProductId = productDto.Id,
+                        Quantity = kvp.Value
+                    };
+
+                    await _context.OrderDetails.AddAsync(orderdetail);
+                    await _context.SaveChangesAsync();
+                }
+
+                    return true;
             }
             catch (Exception ex)
             {

@@ -92,5 +92,26 @@ namespace LovingEssentials.API.Controllers
             }
 
         }
+        [HttpPost("add")]
+        public async Task<IActionResult> AddOrderByCartId([FromQuery] int cartId, int addressId)
+        {
+
+            try
+            {
+                var result = await _orderRepository.AddOrderByCartId(cartId, addressId);
+
+                if (!result)
+                {
+                    return NotFound($"36");
+                }
+
+                return Ok("36");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error add order: {ex.Message}");
+            }
+
+        }
     }
 }
