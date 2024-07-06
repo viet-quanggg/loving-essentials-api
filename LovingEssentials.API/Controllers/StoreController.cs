@@ -49,6 +49,7 @@ namespace LovingEssentials.API.Controllers
             return Ok(result);
         }
 
+
         [HttpPut]
         public async Task<IActionResult> UpdateStore(StoreDTO store)
         {

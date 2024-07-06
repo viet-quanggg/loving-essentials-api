@@ -37,6 +37,12 @@ namespace LovingEssentials.Repository.Repository
             return await _orderDAO.GetOrdersByShipperId(shipperId, status, buyerName);
         }
 
+        public async Task<bool> UpdateOrderStatusToProcessing(int orderId)
+        {
+            return await _orderDAO.UpdateOrderStatusToProcessing(orderId);
+        }
+
+
         public async Task<bool> UpdateOrderStatusByShipper(UpdateStatusRequest request)
         {
             return await _orderDAO.UpdateOrderStatusByShipper(request);

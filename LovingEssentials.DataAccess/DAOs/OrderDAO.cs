@@ -105,6 +105,27 @@ namespace LovingEssentials.DataAccess.DAOs
             }
         }
 
+        public async Task<bool> UpdateOrderStatusToProcessing(int orderId)
+        {
+            try
+            {
+                var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == orderId);
+                if (order == null)
+                {
+                    return false;
+                }
+                order.Status = OrderStatus.Processing;
+                _context.Orders.Update(order);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error updating order status to Processing: {ex.Message}");
+            }
+        }
+
         public async Task<bool> UpdateOrderStatusByShipper(UpdateStatusRequest request)
         {
             try

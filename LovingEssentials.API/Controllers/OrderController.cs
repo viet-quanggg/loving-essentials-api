@@ -58,6 +58,19 @@ namespace LovingEssentials.API.Controllers
             }
         }
 
+        [HttpPut("status/processing/{orderId}")]
+        public async Task<IActionResult> UpdateOrderStatusToProcessing(int orderId)
+        {
+            var result = await _orderRepository.UpdateOrderStatusToProcessing(orderId);
+            if (!result)
+            {
+                return BadRequest("Could not update the order status to Processing.");
+            }
+
+            return Ok("Order status updated to Processing successfully.");
+        }
+
+
         [HttpPut("status")]
         public async Task<IActionResult> UpdateOrderStatus([FromBody] UpdateStatusRequest request)
         {
