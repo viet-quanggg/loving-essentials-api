@@ -25,12 +25,10 @@ namespace LovingEssentials.DataAccess
         public DbSet<User> Users { get; set; }
         public DbSet<Cart> Carts { get; set; }
 
-        public DataContext(){ }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=LAPTOP-870DJRSV;Database=LovingDB;Trusted_Connection=false;user=sa;pwd=123456;TrustServerCertificate=True");
-            //optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=@dmin123;database=LovingDB;TrustServerCertificate=True");
+            /*optionsBuilder.UseSqlServer("Server=LAPTOP-870DJRSV;Database=LovingDB;Trusted_Connection=false;user=sa;pwd=123456;TrustServerCertificate=True");*/
+            optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=LovingDB;TrustServerCertificate=True");
         }    
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
