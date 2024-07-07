@@ -348,7 +348,7 @@ namespace LovingEssentials.DataAccess.Migrations
             modelBuilder.Entity("LovingEssentials.BusinessObject.Order", b =>
                 {
                     b.HasOne("LovingEssentials.BusinessObject.Address", "Address")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -407,6 +407,11 @@ namespace LovingEssentials.DataAccess.Migrations
                     b.Navigation("Brand");
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("LovingEssentials.BusinessObject.Address", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("LovingEssentials.BusinessObject.Brand", b =>

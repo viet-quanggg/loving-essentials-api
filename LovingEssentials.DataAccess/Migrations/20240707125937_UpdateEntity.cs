@@ -6,11 +6,39 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LovingEssentials.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class AddStore : Migration
+    public partial class UpdateEntity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<int>(
+                name: "DeliveryMethod",
+                table: "Orders",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.AddColumn<int>(
+                name: "Payment",
+                table: "Orders",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.AddColumn<string>(
+                name: "ReceiverName",
+                table: "Addresses",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "ReceiverPhone",
+                table: "Addresses",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
             migrationBuilder.CreateTable(
                 name: "Stores",
                 columns: table => new
@@ -36,6 +64,22 @@ namespace LovingEssentials.DataAccess.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Stores");
+
+            migrationBuilder.DropColumn(
+                name: "DeliveryMethod",
+                table: "Orders");
+
+            migrationBuilder.DropColumn(
+                name: "Payment",
+                table: "Orders");
+
+            migrationBuilder.DropColumn(
+                name: "ReceiverName",
+                table: "Addresses");
+
+            migrationBuilder.DropColumn(
+                name: "ReceiverPhone",
+                table: "Addresses");
         }
     }
 }

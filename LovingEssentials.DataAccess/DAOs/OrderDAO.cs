@@ -166,7 +166,9 @@ namespace LovingEssentials.DataAccess.DAOs
                     BuyerId = cart.BuyerId,
                     ShipperId = null,
                     AddressId = addressId,
-                    Status = OrderStatus.Pending
+                    Status = OrderStatus.Pending,
+                    Payment = Payment.Cash,
+                    DeliveryMethod = DeliveryMethod.Delivery
                 };
 
                 await _context.Orders.AddAsync(order);
@@ -178,15 +180,16 @@ namespace LovingEssentials.DataAccess.DAOs
                 foreach (var kvp in productsDict)
                 {
                     var productDto = await _context.Products
-                            .Where(p => p.Id == kvp.Key)
-                            .ProjectTo<ProductDTO>(_mapper.ConfigurationProvider)
-                            .FirstOrDefaultAsync();
+                        .Where(p => p.Id == kvp.Key)
+                        .ProjectTo<ProductDTO>(_mapper.ConfigurationProvider)
+                        .FirstOrDefaultAsync();
 
                     var orderdetail = new OrderDetail()
                     {
                         OrderId = order.Id,
                         CreateAt = DateTime.Now,
                         UpdateAt = DateTime.Now,
+                        Price = productDto.Price,
                         ProductId = productDto.Id,
                         Quantity = kvp.Value
                     };
@@ -195,7 +198,9 @@ namespace LovingEssentials.DataAccess.DAOs
                     await _context.SaveChangesAsync();
                 }
 
-                    return true;
+                _context.Carts.Remove(cart);
+                await _context.SaveChangesAsync();
+                return true;
             }
             catch (Exception ex)
             {

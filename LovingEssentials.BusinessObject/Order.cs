@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LovingEssentials.BusinessObject
@@ -24,6 +25,7 @@ namespace LovingEssentials.BusinessObject
         public Address Address { get; set; }
         public User Buyers { get; set; }
         public User Shippers { get; set; }
+        [JsonIgnore]
         public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 

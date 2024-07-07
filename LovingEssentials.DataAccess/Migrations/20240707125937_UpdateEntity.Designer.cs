@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LovingEssentials.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240707093516_UpdateEntityStatus")]
-    partial class UpdateEntityStatus
+    [Migration("20240707125937_UpdateEntity")]
+    partial class UpdateEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -351,7 +351,7 @@ namespace LovingEssentials.DataAccess.Migrations
             modelBuilder.Entity("LovingEssentials.BusinessObject.Order", b =>
                 {
                     b.HasOne("LovingEssentials.BusinessObject.Address", "Address")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -410,6 +410,11 @@ namespace LovingEssentials.DataAccess.Migrations
                     b.Navigation("Brand");
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("LovingEssentials.BusinessObject.Address", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("LovingEssentials.BusinessObject.Brand", b =>

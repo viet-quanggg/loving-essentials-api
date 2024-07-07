@@ -49,6 +49,13 @@ namespace LovingEssentials.DataAccess
                 .HasForeignKey(o => o.ShipperId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Store>()
+                .HasKey(s => s.Id);
+
+            modelBuilder.Entity<Address>()
+                .HasMany(a => a.Orders)
+                .WithOne(o => o.Address);
+
             modelBuilder.Entity<OrderDetail>()
                 .HasOne(od => od.Orders)
                 .WithMany(o => o.OrderDetails)
@@ -75,8 +82,7 @@ namespace LovingEssentials.DataAccess
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Addresses)
-                .WithOne(a => a.Users)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithOne(a => a.Users);
         }
     }
 }
