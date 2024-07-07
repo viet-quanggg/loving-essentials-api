@@ -38,13 +38,19 @@ namespace LovingEssentials.Repository.Repository
             return await _orderDAO.GetOrdersByShipperId(shipperId, status, buyerName);
         }
 
+        public async Task<bool> UpdateOrderStatusToProcessing(int orderId)
+        {
+            return await _orderDAO.UpdateOrderStatusToProcessing(orderId);
+        }
+
+
         public async Task<bool> UpdateOrderStatusByShipper(UpdateStatusRequest request)
         {
             return await _orderDAO.UpdateOrderStatusByShipper(request);
         }
-        public async Task<bool> AddOrderByCartId(int cartId, int addressId)
+        public async Task<bool> AddOrderByCartId(int cartId, int addressId, int method, int payment)
         {
-            return await _orderDAO.AddOrderByCartId(cartId, addressId);
+            return await _orderDAO.AddOrderByCartId(cartId, addressId, method, payment);
         }
     }
 }

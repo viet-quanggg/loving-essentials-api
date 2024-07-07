@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Net.payOS;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,6 +70,18 @@ builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<AddressDAO>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+
+
+IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+PayOS payOS = new PayOS(configuration["Environment:PAYOS_CLIENT_ID"] ?? throw new Exception("Cannot find environment"),
+    configuration["Environment:PAYOS_API_KEY"] ?? throw new Exception("Cannot find environment"),
+    configuration["Environment:PAYOS_CHECKSUM_KEY"] ?? throw new Exception("Cannot find environment"));
+builder.Services.AddSingleton(payOS);
+
+builder.Services.AddScoped<StoreDAO>();
+builder.Services.AddScoped<IStoreRepository, StoreRepository>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
@@ -104,6 +117,7 @@ try
 
     await context.Database.MigrateAsync();
     await Seed.SeedUser(context, passwordHasher);
+    await Seed.SeedAddress(context);
     await Seed.SeedBrand(context);
     await Seed.SeedCategory(context);
     await Seed.SeedProduct(context);

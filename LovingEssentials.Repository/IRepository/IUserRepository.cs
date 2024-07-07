@@ -10,6 +10,7 @@ namespace LovingEssentials.Repository.IRepository
         Task DeleteUser(User user);
         Task<User> GetUserById(int id);
         Task<bool> UserExistsByEmail(string email);
+        Task<List<User>> GetListShipper();
         Task<List<User>> ListAllUser();
         Task UpdateUser(User user);
     }

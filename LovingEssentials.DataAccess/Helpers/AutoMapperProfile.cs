@@ -38,6 +38,7 @@ namespace LovingEssentials.DataAccess.Helpers
             CreateMap<Address, UserAddressDTO>()
                 .ForMember(dest => dest.UserInformation, opt => opt.MapFrom(a => a.Users));
 
+
             CreateMap<Product, CreateProductDTO>().ReverseMap();
             CreateMap<Product, EditProductDTO>();
             CreateMap<OrderResponse, Order>();
@@ -53,6 +54,9 @@ namespace LovingEssentials.DataAccess.Helpers
                 .ForMember(dest => dest.Products, act => act.MapFrom(src => src.Products));
             CreateMap<Product, ProductDTO>();
 
+
+            CreateMap<Store, StoreDTO>().ReverseMap();
+            CreateMap<Store, CreateStoreDTO>().ReverseMap();
 
         }
     }
