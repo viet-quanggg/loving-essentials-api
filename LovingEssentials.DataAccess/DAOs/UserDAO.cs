@@ -74,6 +74,22 @@ public class UserDAO
         return list;
     }
 
+    public async Task<List<User>> GetListShipper()
+    {
+        try
+        {
+            var shippers = await _context.Users
+                .Where(u => u.Role == Role.Shipper)
+                .ToListAsync();
+            return shippers;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+
     public async Task<User> GetUserById(int id)
     {
         User user = null;

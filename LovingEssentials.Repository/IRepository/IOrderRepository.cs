@@ -17,7 +17,9 @@ namespace LovingEssentials.Repository.IRepository
         Task<List<OrderDetailDTO>> GetOrderDetailsById(int orderid);
 
         Task<List<OrderResponse>> GetOrdersByShipperId(int shipperId, OrderStatus? status = null, string buyerName = null, string productName = null);
+        Task<bool> UpdateOrderStatusToProcessing(int orderId);
         Task<bool> UpdateOrderStatusByShipper(UpdateStatusRequest request);
+        Task<bool> AddOrderByCartId(int cartId, int addressId);
 
     }
 }

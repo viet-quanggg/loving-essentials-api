@@ -25,6 +25,14 @@ namespace LovingEssentials.API.Controllers
         {
             return Ok(await _userRepository.ListAllUser());
         }
+
+
+        [HttpGet("shipper-list")]
+        public async Task<IActionResult> GetShipper()
+        {
+            return Ok(await _userRepository.GetListShipper());
+        }
+
         [HttpGet("user-detail/{id}")]
         public async Task<IActionResult> GetDetail([FromRoute]int id)
         {

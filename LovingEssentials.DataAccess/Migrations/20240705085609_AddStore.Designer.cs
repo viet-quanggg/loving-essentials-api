@@ -4,6 +4,7 @@ using LovingEssentials.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LovingEssentials.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240705085609_AddStore")]
+    partial class AddStore
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +60,7 @@ namespace LovingEssentials.DataAccess.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("Addresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("LovingEssentials.BusinessObject.Brand", b =>
@@ -74,7 +77,7 @@ namespace LovingEssentials.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands", (string)null);
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("LovingEssentials.BusinessObject.Cart", b =>
@@ -109,7 +112,7 @@ namespace LovingEssentials.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("LovingEssentials.BusinessObject.Category", b =>
@@ -126,7 +129,7 @@ namespace LovingEssentials.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("LovingEssentials.BusinessObject.Order", b =>
@@ -137,19 +140,13 @@ namespace LovingEssentials.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
                     b.Property<int>("BuyerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ShipperId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
+                    b.Property<int>("ShipperId")
                         .HasColumnType("int");
 
                     b.Property<double>("TotalPrice")
@@ -160,13 +157,11 @@ namespace LovingEssentials.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
-
                     b.HasIndex("BuyerId");
 
                     b.HasIndex("ShipperId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("LovingEssentials.BusinessObject.OrderDetail", b =>
@@ -201,7 +196,7 @@ namespace LovingEssentials.DataAccess.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderDetails", (string)null);
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("LovingEssentials.BusinessObject.Product", b =>
@@ -245,7 +240,7 @@ namespace LovingEssentials.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("LovingEssentials.BusinessObject.Store", b =>
@@ -282,7 +277,7 @@ namespace LovingEssentials.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Stores", (string)null);
+                    b.ToTable("Stores");
                 });
 
             modelBuilder.Entity("LovingEssentials.BusinessObject.User", b =>
@@ -317,7 +312,7 @@ namespace LovingEssentials.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("LovingEssentials.BusinessObject.Address", b =>
@@ -333,12 +328,6 @@ namespace LovingEssentials.DataAccess.Migrations
 
             modelBuilder.Entity("LovingEssentials.BusinessObject.Order", b =>
                 {
-                    b.HasOne("LovingEssentials.BusinessObject.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("LovingEssentials.BusinessObject.User", "Buyers")
                         .WithMany("Orders")
                         .HasForeignKey("BuyerId")
@@ -348,9 +337,8 @@ namespace LovingEssentials.DataAccess.Migrations
                     b.HasOne("LovingEssentials.BusinessObject.User", "Shippers")
                         .WithMany()
                         .HasForeignKey("ShipperId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Address");
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Buyers");
 
