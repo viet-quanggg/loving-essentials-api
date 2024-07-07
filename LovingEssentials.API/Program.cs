@@ -117,6 +117,7 @@ try
 
     await context.Database.MigrateAsync();
     await Seed.SeedUser(context, passwordHasher);
+    await Seed.SeedAddress(context);
     await Seed.SeedBrand(context);
     await Seed.SeedCategory(context);
     await Seed.SeedProduct(context);
