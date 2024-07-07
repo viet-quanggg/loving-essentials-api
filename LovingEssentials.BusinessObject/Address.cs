@@ -9,6 +9,8 @@ namespace LovingEssentials.BusinessObject
     public class Address
     {
         public int Id { get; set; }
+        public string ReceiverName { get; set; }
+        public string ReceiverPhone { get; set; }
         public string HouseNumber { get; set; }
         public string Street {  get; set; }
         public string Ward { get; set; }

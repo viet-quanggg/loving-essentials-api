@@ -16,6 +16,11 @@ namespace LovingEssentials.BusinessObject
         public int? ShipperId { get; set; }
         public int AddressId { get; set; }
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
+        
+        public DeliveryMethod DeliveryMethod { get; set; }
+        
+        public Payment Payment { get; set; }
+        
         public Address Address { get; set; }
         public User Buyers { get; set; }
         public User Shippers { get; set; }
@@ -29,5 +34,16 @@ namespace LovingEssentials.BusinessObject
         Shipped = 3,
         Delivered = 4,
         Cancelled = 5
+    }
+
+    public enum DeliveryMethod
+    {
+        TakeAtStore,
+        Delivery
+    }
+    public enum Payment
+    {
+        Cash,
+        BankTransfer
     }
 }

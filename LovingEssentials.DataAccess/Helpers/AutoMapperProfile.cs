@@ -27,7 +27,9 @@ namespace LovingEssentials.DataAccess.Helpers
             CreateMap<Product, CartDTO>();
 
             CreateMap<Address, CreateAddressDTO>();
-            CreateMap<CreateAddressDTO, Address>();
+            CreateMap<CreateAddressDTO, Address>()
+                .ForMember(dest => dest.ReceiverPhone, opt => opt.MapFrom(a => a.UserAddress!.PhoneNumber))
+                .ForMember(dest => dest.ReceiverName, opt => opt.MapFrom(a => a.UserAddress!.Name));
             
             CreateMap<UserAddress, User>();
 
@@ -36,7 +38,9 @@ namespace LovingEssentials.DataAccess.Helpers
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(a => a.PhoneNumber))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(a => a.Email));
             CreateMap<Address, UserAddressDTO>()
-                .ForMember(dest => dest.UserInformation, opt => opt.MapFrom(a => a.Users));
+                .ForMember(dest => dest.UserInformation.Name, opt => opt.MapFrom(a => a.ReceiverName))
+                .ForMember(dest => dest.UserInformation.PhoneNumber, opt => opt.MapFrom(a => a.ReceiverPhone));
+
 
             CreateMap<Product, CreateProductDTO>().ReverseMap();
             CreateMap<Product, EditProductDTO>();

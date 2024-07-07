@@ -102,10 +102,10 @@ namespace LovingEssentials.API.Controllers
 
                 if (!result)
                 {
-                    return NotFound($"36");
+                    return NotFound($"Error in adding order");
                 }
 
-                return Ok("36");
+                return Ok(result);
             }
             catch (Exception ex)
             {
