@@ -1,16 +1,32 @@
 [
   {
+    "ReceiverName": "John Doe",
+    "ReceiverPhone": "+1234567890",
     "HouseNumber": "123",
-    "Street": "Huỳnh Tấn Phát",
-    "Ward": "Phường Bình Thuận",
-    "District": "Quận 7",
-    "City": "Thành phố Hồ Chí Minh"
+    "Street": "Main St",
+    "Ward": "Ward 1",
+    "District": "District 1",
+    "City": "Cityville",
+    "UserId": 1
   },
   {
-    "HouseNumber": "423/123/31/21",
-    "Street": "Huỳnh Tấn Phát",
-    "Ward": "Phường Bình Thuận",
-    "District": "Quận 7",
-    "City": "Thành phố Hồ Chí Minh"
+    "ReceiverName": "Jane Smith",
+    "ReceiverPhone": "+0987654321",
+    "HouseNumber": "456",
+    "Street": "Broadway",
+    "Ward": "Ward 2",
+    "District": "District 2",
+    "City": "Metropolis",
+    "UserId": 1
+  },
+  {
+    "ReceiverName": "Admin User",
+    "ReceiverPhone": "+1122334455",
+    "HouseNumber": "789",
+    "Street": "5th Avenue",
+    "Ward": "Ward 3",
+    "District": "District 3",
+    "City": "Capital City",
+    "UserId": 1
   }
 ]

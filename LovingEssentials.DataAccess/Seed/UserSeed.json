@@ -5,7 +5,8 @@
     "Email": "nguyenvana@gmail.com",
     "Password": "Pa$$w0rd",
     "PhoneNumber": "0123456789",
-    "Status": 1
+    "Status": 1,
+    "Addresses": []
   },
   {
     "Name": "Nguyen Van B",
@@ -13,7 +14,9 @@
     "Email": "nguyenvanb@gmail.com",
     "Password": "Pa$$w0rd",
     "PhoneNumber": "0123456786",
-    "Status": 1
+    "Status": 1,
+    "Addresses": []
+    
   },
   {
     "Name": "Nguyen Van Admin",
@@ -21,7 +24,9 @@
     "Email": "admin@gmail.com",
     "Password": "Pa$$w0rd",
     "PhoneNumber": "0123456782",
-    "Status": 1
+    "Status": 1,
+    "Addresses": []
+    
   },
   {
     "Name": "Nguyen Van Admin",
@@ -29,7 +34,9 @@
     "Email": "admin@gmail.com",
     "Password": "Pa$$w0rd",
     "PhoneNumber": "0123456789",
-    "Status": 1
+    "Status": 1,
+    "Addresses": []
+    
   },
   {
     "Name": "Nguyen Van Shipper",
@@ -37,6 +44,8 @@
     "Email": "shipper@gmail.com",
     "Password": "Pa$$w0rd",
     "PhoneNumber": "0123456785",
-    "Status": 1
+    "Status": 1,
+    "Addresses": []
+    
   }
 ]

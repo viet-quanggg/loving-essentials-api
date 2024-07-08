@@ -28,7 +28,7 @@ namespace LovingEssentials.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            /*optionsBuilder.UseSqlServer("Server=LAPTOP-870DJRSV;Database=LovingDB;Trusted_Connection=false;user=sa;pwd=123456;TrustServerCertificate=True");*/
+            // optionsBuilder.UseSqlServer("Server=LAPTOP-870DJRSV;Database=LovingDB;Trusted_Connection=false;user=sa;pwd=123456;TrustServerCertificate=True");
             optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=LovingDB;TrustServerCertificate=True");
         }    
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -48,6 +48,13 @@ namespace LovingEssentials.DataAccess
                 .WithMany()
                 .HasForeignKey(o => o.ShipperId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Store>()
+                .HasKey(s => s.Id);
+
+            modelBuilder.Entity<Address>()
+                .HasMany(a => a.Orders)
+                .WithOne(o => o.Address);
 
             modelBuilder.Entity<OrderDetail>()
                 .HasOne(od => od.Orders)
@@ -75,8 +82,7 @@ namespace LovingEssentials.DataAccess
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Addresses)
-                .WithOne(a => a.Users)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithOne(a => a.Users);
         }
     }
 }

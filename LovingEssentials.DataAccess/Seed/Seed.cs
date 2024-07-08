@@ -14,19 +14,7 @@ namespace LovingEssentials.DataAccess.Seed
 {
     public class Seed
     {
-        public static async Task SeedAddress(DataContext _context)
-        {
-            if(await _context.Addresses.AnyAsync()) { return; }
-
-            var addressData = await File.ReadAllTextAsync("../LovingEssentials.DataAccess/Seed/AddressSeed.json");
-            var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var addresses = JsonSerializer.Deserialize<List<Address>>(addressData, jsonOptions);
-            foreach (var address in addresses)
-            {
-                await _context.Addresses.AddAsync(address);
-                await _context.SaveChangesAsync();
-            }
-        }
+        
         public static async Task SeedUser(DataContext _context, IPasswordHasher<User> _passwordHasher)
         {
             if (await _context.Users.AnyAsync()) return;
@@ -47,6 +35,22 @@ namespace LovingEssentials.DataAccess.Seed
         {
             return _passwordHasher.HashPassword(account, password);
         }
+        public static async Task SeedAddress(DataContext _context)
+        {
+            if(await _context.Addresses.AnyAsync()) { return; }
+
+            var addressData = await File.ReadAllTextAsync("../LovingEssentials.DataAccess/Seed/AddressSeed.json");
+            var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var addresses = JsonSerializer.Deserialize<List<Address>>(addressData, jsonOptions);
+            foreach (var address in addresses)
+            {
+                var user = await  _context.Users.Where(u => u.Id == 1).FirstOrDefaultAsync();
+                address.Users = user;
+                await _context.Addresses.AddAsync(address);
+                await _context.SaveChangesAsync();
+            }
+        }
+      
 
         public static async Task SeedBrand(DataContext _context)
         {

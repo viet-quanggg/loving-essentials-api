@@ -93,19 +93,19 @@ namespace LovingEssentials.API.Controllers
 
         }
         [HttpPost("add")]
-        public async Task<IActionResult> AddOrderByCartId([FromQuery] int cartId, int addressId)
+        public async Task<IActionResult> AddOrderByCartId([FromQuery] int cartId, int addressId, int method, int payment)
         {
 
             try
             {
-                var result = await _orderRepository.AddOrderByCartId(cartId, addressId);
+                var result = await _orderRepository.AddOrderByCartId(cartId, addressId, method, payment);
 
                 if (!result)
                 {
-                    return NotFound($"36");
+                    return NotFound($"Error in adding order");
                 }
 
-                return Ok("36");
+                return Ok(result);
             }
             catch (Exception ex)
             {

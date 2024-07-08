@@ -22,6 +22,6 @@ namespace LovingEssentials.BusinessObject
         public string PhoneNumber { get; set; }
         public byte Status {  get; set; }
         public ICollection<Order> Orders { get; set; }
-        public ICollection<Address> Addresses { get; set; }
+        public ICollection<Address> Addresses { get; set; } = new List<Address>();
     }
 }
