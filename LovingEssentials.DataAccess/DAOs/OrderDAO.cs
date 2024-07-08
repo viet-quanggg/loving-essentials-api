@@ -77,6 +77,7 @@ namespace LovingEssentials.DataAccess.DAOs
                     .Include(o => o.Buyers)
                     .Include(o => o.OrderDetails)
                         .ThenInclude(od => od.Products)
+                    .Include(o => o.Address)
                     .AsQueryable();
 
                 query = query.Where(o => o.ShipperId == shipperId);
