@@ -14,7 +14,7 @@ public class PaymentRepository : IPaymentRepository
     }
     
     
-    public async Task<string> CreatePaymentLink(CreatePaymentLinkRequest paymentLinkRequest)
+    public async Task<Response> CreatePaymentLink(CreatePaymentLinkRequest paymentLinkRequest)
     {
         try
         {
@@ -26,9 +26,9 @@ public class PaymentRepository : IPaymentRepository
 
             CreatePaymentResult createPayment = await _payOs.createPaymentLink(paymentData);
 
-            // return new Response(0, "success", createPayment);
+            return new Response(0, "success", createPayment);
 
-            return createPayment.checkoutUrl;
+            // return createPayment.checkoutUrl;
         }
         catch (System.Exception exception)
         {

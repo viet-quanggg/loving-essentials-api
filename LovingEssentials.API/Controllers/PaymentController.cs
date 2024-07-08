@@ -14,7 +14,7 @@ namespace LovingEssentials.API.Controllers
             _paymentRepository = paymentRepository;
         }
         
-        [HttpPost("/create-payment-link-PayOs")]
+        [HttpPost("/api/Payment/create-payment-link-PayOs")]
         public async Task<IActionResult> GetPayOsPaymentLink([FromQuery] CreatePaymentLinkRequest request)
         {
             try
@@ -29,7 +29,7 @@ namespace LovingEssentials.API.Controllers
             }
         }
         
-        [HttpGet("/GetPayOsOrder/{orderId}")]
+        [HttpGet("/api/Payment/GetPayOsOrder/{orderId}")]
         public async Task<IActionResult> GetOrder([FromRoute] int orderId)
         {
             try
