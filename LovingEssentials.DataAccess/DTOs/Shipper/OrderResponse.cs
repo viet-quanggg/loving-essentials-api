@@ -13,6 +13,7 @@ namespace LovingEssentials.DataAccess.DTOs.Shipper
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
         public double TotalPrice { get; set; }
+        public string Address { get; set; }
         public int BuyerId { get; set; }
         public int ShipperId { get; set; }
         public OrderStatus Status { get; set; }

@@ -2,31 +2,31 @@
   {
     "ReceiverName": "John Doe",
     "ReceiverPhone": "+1234567890",
-    "HouseNumber": "123",
-    "Street": "Main St",
-    "Ward": "Ward 1",
-    "District": "District 1",
-    "City": "Cityville",
+    "HouseNumber": "106",
+    "Street": "Trần Trọng Cung",
+    "Ward": "Phường Tân Thuận Đông",
+    "District": "Quận 7",
+    "City": "Thành phố Hồ Chí Minh",
     "UserId": 1
   },
   {
     "ReceiverName": "Jane Smith",
     "ReceiverPhone": "+0987654321",
-    "HouseNumber": "456",
-    "Street": "Broadway",
-    "Ward": "Ward 2",
-    "District": "District 2",
-    "City": "Metropolis",
+    "HouseNumber": "Vincom Plus Nam Long",
+    "Street": "Đường Số 10",
+    "Ward": "Phường Tân Thuận Đông",
+    "District": "Quận 7",
+    "City": "Thành phố Hồ Chí Minh",
     "UserId": 1
   },
   {
     "ReceiverName": "Admin User",
     "ReceiverPhone": "+1122334455",
-    "HouseNumber": "789",
-    "Street": "5th Avenue",
-    "Ward": "Ward 3",
-    "District": "District 3",
-    "City": "Capital City",
+    "HouseNumber": "Lô E2a-7",
+    "Street": "Đường D1",
+    "Ward": "Long Thạnh Mỹ",
+    "District": "",
+    "City": "Thành phố Thủ Đức",
     "UserId": 1
   }
 ]

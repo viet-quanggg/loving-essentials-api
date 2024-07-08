@@ -47,7 +47,8 @@ namespace LovingEssentials.DataAccess.Helpers
 
             CreateMap<Order, OrderResponse>()
             .ForMember(dest => dest.Buyers, act => act.MapFrom(src => src.Buyers))
-            .ForMember(dest => dest.OrderDetails, act => act.MapFrom(src => src.OrderDetails));
+            .ForMember(dest => dest.OrderDetails, act => act.MapFrom(src => src.OrderDetails))
+            .ForMember(dest => dest.Address, act => act.MapFrom(src => $"{src.Address.HouseNumber} {src.Address.Street}, {src.Address.Ward}, {src.Address.District}, {src.Address.City}"));
 
             CreateMap<User, UserProfileDTO>();
             CreateMap<OrderDetail, OrderDetailResponse>()
