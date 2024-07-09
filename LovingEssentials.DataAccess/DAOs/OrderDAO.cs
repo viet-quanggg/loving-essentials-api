@@ -133,11 +133,24 @@ namespace LovingEssentials.DataAccess.DAOs
         {
             try
             {
-                var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == request.orderId && o.ShipperId == request.shipperId);
+                var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == request.orderId);
                 if (order == null)
                 {
                     return false;
                 }
+
+                // Nếu ShipperId của order là null, gán ShipperId từ request
+                if (order.ShipperId == null)
+                {
+                    order.ShipperId = request.shipperId;
+                }
+
+                // Kiểm tra nếu ShipperId của order khớp với ShipperId từ request
+                if (order.ShipperId != request.shipperId)
+                {
+                    return false;
+                }
+
                 order.Status = request.newStatus;
                 _context.Orders.Update(order);
                 await _context.SaveChangesAsync();
@@ -149,6 +162,7 @@ namespace LovingEssentials.DataAccess.DAOs
                 throw new Exception($"Error updating order status: {ex.Message}");
             }
         }
+
         public async Task<bool> AddOrderByCartId(int cartId, int addressId, int method, int payment)
         {
             try
