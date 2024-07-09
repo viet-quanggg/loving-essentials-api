@@ -37,7 +37,15 @@ public class AddressController : ControllerBase
     {
         if (addId != null)
         {
-            return Ok(await _addressRepository.GetAddressById(addId));
+            var address = await _addressRepository.GetAddressById(addId);
+            if(address != null)
+            {
+                return Ok(address);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         return BadRequest("Address Id is null");

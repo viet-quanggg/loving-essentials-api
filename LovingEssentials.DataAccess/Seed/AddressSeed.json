@@ -1,0 +1,32 @@
+[
+  {
+    "ReceiverName": "John Doe",
+    "ReceiverPhone": "+1234567890",
+    "HouseNumber": "106",
+    "Street": "Trần Trọng Cung",
+    "Ward": "Phường Tân Thuận Đông",
+    "District": "Quận 7",
+    "City": "Thành phố Hồ Chí Minh",
+    "UserId": 1
+  },
+  {
+    "ReceiverName": "Jane Smith",
+    "ReceiverPhone": "+0987654321",
+    "HouseNumber": "Vincom Plus Nam Long",
+    "Street": "Đường Số 10",
+    "Ward": "Phường Tân Thuận Đông",
+    "District": "Quận 7",
+    "City": "Thành phố Hồ Chí Minh",
+    "UserId": 1
+  },
+  {
+    "ReceiverName": "Admin User",
+    "ReceiverPhone": "+1122334455",
+    "HouseNumber": "Lô E2a-7",
+    "Street": "Đường D1",
+    "Ward": "Long Thạnh Mỹ",
+    "District": "",
+    "City": "Thành phố Thủ Đức",
+    "UserId": 1
+  }
+]

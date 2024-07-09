@@ -2,6 +2,8 @@
 using LovingEssentials.BusinessObject;
 using LovingEssentials.DataAccess.DTOs;
 using LovingEssentials.DataAccess.DTOs.Admin;
+using LovingEssentials.DataAccess.DTOs.Shipper;
+using System;
 
 namespace LovingEssentials.DataAccess.Helpers
 {
@@ -14,6 +16,11 @@ namespace LovingEssentials.DataAccess.Helpers
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
 
             CreateMap<Order, OrderDTO>()
+                .ForMember(dest => dest.ShipperName, opt => opt.MapFrom(src => src.Shippers.Name))
+                .ReverseMap();
+            CreateMap<OrderDetail, OrderDetailDTO>()
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Products.Name))
+                .ForMember(dest => dest.Url, opt => opt.MapFrom(src => src.Products.ImageURL))
                 .ReverseMap();
 
             CreateMap<Cart ,CartDTO>();
@@ -31,8 +38,26 @@ namespace LovingEssentials.DataAccess.Helpers
             CreateMap<Address, UserAddressDTO>()
                 .ForMember(dest => dest.UserInformation, opt => opt.MapFrom(a => a.Users));
 
+
             CreateMap<Product, CreateProductDTO>().ReverseMap();
             CreateMap<Product, EditProductDTO>();
+            CreateMap<OrderResponse, Order>();
+            CreateMap<OrderDetailResponse, OrderDetail>();
+            CreateMap<UserProfileDTO, User>();
+
+            CreateMap<Order, OrderResponse>()
+            .ForMember(dest => dest.Buyers, act => act.MapFrom(src => src.Buyers))
+            .ForMember(dest => dest.OrderDetails, act => act.MapFrom(src => src.OrderDetails))
+            .ForMember(dest => dest.Address, act => act.MapFrom(src => $"{src.Address.HouseNumber} {src.Address.Street}, {src.Address.Ward}, {src.Address.District}, {src.Address.City}"));
+
+            CreateMap<User, UserProfileDTO>();
+            CreateMap<OrderDetail, OrderDetailResponse>()
+                .ForMember(dest => dest.Products, act => act.MapFrom(src => src.Products));
+            CreateMap<Product, ProductDTO>();
+
+
+            CreateMap<Store, StoreDTO>().ReverseMap();
+            CreateMap<Store, CreateStoreDTO>().ReverseMap();
 
         }
     }

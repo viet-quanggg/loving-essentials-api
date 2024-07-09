@@ -23,6 +23,12 @@ public class UserRepository : IUserRepository
         await _userDAO.Register(user);
     }
 
+    public async Task<List<User>> GetListShipper()
+    {
+        return await _userDAO.GetListShipper();
+    }
+
+
     public async Task<List<User>> ListAllUser()
     {
         return await _userDAO.ListAllUser();

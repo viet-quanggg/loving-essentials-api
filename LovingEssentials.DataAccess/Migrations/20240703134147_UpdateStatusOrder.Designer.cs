@@ -4,6 +4,7 @@ using LovingEssentials.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LovingEssentials.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240703134147_UpdateStatusOrder")]
+    partial class UpdateStatusOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,11 +49,16 @@ namespace LovingEssentials.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UsersId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Ward")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UsersId");
 
                     b.ToTable("Addresses");
                 });
@@ -132,22 +140,13 @@ namespace LovingEssentials.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
                     b.Property<int>("BuyerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DeliveryMethod")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Payment")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ShipperId")
+                    b.Property<int>("ShipperId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -160,8 +159,6 @@ namespace LovingEssentials.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
 
                     b.HasIndex("BuyerId");
 
@@ -249,43 +246,6 @@ namespace LovingEssentials.DataAccess.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("LovingEssentials.BusinessObject.Store", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan>("CloseHours")
-                        .HasColumnType("time");
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan>("OpenHours")
-                        .HasColumnType("time");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Stores");
-                });
-
             modelBuilder.Entity("LovingEssentials.BusinessObject.User", b =>
                 {
                     b.Property<int>("Id")
@@ -334,12 +294,6 @@ namespace LovingEssentials.DataAccess.Migrations
 
             modelBuilder.Entity("LovingEssentials.BusinessObject.Order", b =>
                 {
-                    b.HasOne("LovingEssentials.BusinessObject.Address", "Address")
-                        .WithMany("Orders")
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("LovingEssentials.BusinessObject.User", "Buyers")
                         .WithMany("Orders")
                         .HasForeignKey("BuyerId")
@@ -349,9 +303,8 @@ namespace LovingEssentials.DataAccess.Migrations
                     b.HasOne("LovingEssentials.BusinessObject.User", "Shippers")
                         .WithMany()
                         .HasForeignKey("ShipperId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Address");
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Buyers");
 
@@ -394,11 +347,6 @@ namespace LovingEssentials.DataAccess.Migrations
                     b.Navigation("Brand");
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("LovingEssentials.BusinessObject.Address", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("LovingEssentials.BusinessObject.Brand", b =>
