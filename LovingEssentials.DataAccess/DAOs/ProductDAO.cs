@@ -117,6 +117,7 @@ namespace LovingEssentials.DataAccess.DAOs
                     existedProduct.Name = editProductDTO.Name;
                     existedProduct.Quantity = editProductDTO.Quantity;
                     existedProduct.Price = editProductDTO.Price;
+                    existedProduct.Description = editProductDTO.Description;
                     existedProduct.CategoryId = editProductDTO.CategoryId;
                     existedProduct.BrandId = editProductDTO.BrandId;
                     existedProduct.ImageURL = editProductDTO.ImageURL;
