@@ -27,7 +27,7 @@ namespace LovingEssentials.DataAccess.DAOs
         {
             try
             {
-                var orders = await _context.Orders.Include(o => o.OrderDetails).ToListAsync();
+                var orders = await _context.Orders.Where(o => o.Status == OrderStatus.Processing).Include(o => o.OrderDetails).ToListAsync();
                 var result = _mapper.Map<List<OrderDTO>>(orders);
                 return result;
             }
@@ -43,6 +43,7 @@ namespace LovingEssentials.DataAccess.DAOs
                 var orders = await _context.Orders.Where(o => o.BuyerId == userid)
                     .Include(o => o.Shippers)
                     .Include(o => o.OrderDetails)
+                    .OrderByDescending(o => o.Id)
                     .ToListAsync();
                 var result = _mapper.Map<List<OrderDTO>>(orders);
 
@@ -133,7 +134,7 @@ namespace LovingEssentials.DataAccess.DAOs
         {
             try
             {
-                var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == request.orderId && o.ShipperId == request.shipperId);
+                var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == request.orderId);
                 if (order == null)
                 {
                     return false;
@@ -189,10 +190,15 @@ namespace LovingEssentials.DataAccess.DAOs
                     BuyerId = cart.BuyerId,
                     ShipperId = null,
                     AddressId = addressId,
-                    Status = OrderStatus.Pending,
+                    Status = OrderStatus.Processing,
                     Payment = paymentMethod,
                     DeliveryMethod = deliveryMethod
                 };
+
+                if (deliveryMethod == DeliveryMethod.Delivery)
+                {
+                    order.TotalPrice += 30000;
+                }
 
                 await _context.Orders.AddAsync(order);
                 await _context.SaveChangesAsync();
