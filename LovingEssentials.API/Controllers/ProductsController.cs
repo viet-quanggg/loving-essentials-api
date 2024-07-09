@@ -23,6 +23,12 @@ namespace LovingEssentials.API.Controllers
             var result = await _productRepository.GetProducts();
             return result;
         }
+        [HttpGet("admin")]
+        public async Task<ActionResult<List<ProductDTO>>> GetProductsAdmin()
+        {
+            var result = await _productRepository.GetProductsAdmin();
+            return result;
+        }
         [HttpGet("filter")]
         public async Task<ActionResult<List<ProductDTO>>> GetFilteredProducts(int brandId, int categoryId, string? search)
         {

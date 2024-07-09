@@ -24,6 +24,10 @@ namespace LovingEssentials.Repository.Repository
         {
             return await _productDAO.GetProducts();
         }
+        public async Task<List<ProductDTO>> GetProductsAdmin()
+        {
+            return await _productDAO.GetProductsForAdmin();
+        }
 
         public async Task<ProductDTO> GetProductbyId(int Id)
         {
